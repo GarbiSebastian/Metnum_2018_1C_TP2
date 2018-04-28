@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>constantes.h</itemPath>
       <itemPath>funciones.h</itemPath>
       <itemPath>imprimir.h</itemPath>
       <itemPath>knn.h</itemPath>
@@ -47,6 +48,8 @@
           <standard>8</standard>
         </ccTool>
       </compileType>
+      <item path="constantes.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="funciones.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="funciones.h" ex="false" tool="3" flavor2="0">
@@ -87,6 +90,8 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="constantes.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="funciones.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="funciones.h" ex="false" tool="3" flavor2="0">

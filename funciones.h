@@ -5,7 +5,7 @@
 
 using namespace std;
 
-double normaInfinito(vectorReal &v);
+//double normaInfinito(vectorReal &v);
 //double norma2_original(vectorReal v);
 //double norma2_infinito(vectorReal v);
 double norma2(vectorReal v);
