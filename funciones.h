@@ -1,12 +1,9 @@
 #ifndef FUNCIONES_H
 #define FUNCIONES_H
 
-#include <vector>
+#include "typedefs.h"
 
 using namespace std;
-
-typedef vector<double> vectorReal;
-typedef vector< vectorReal > matrizReal;
 
 double normaInfinito(vectorReal &v);
 double norma2_original(vectorReal v);

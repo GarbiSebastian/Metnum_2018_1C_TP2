@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include "funciones.h"
+#include "typedefs.h"
 
 using namespace std;
 
