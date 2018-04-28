@@ -9,6 +9,7 @@
       <itemPath>imprimir.h</itemPath>
       <itemPath>knn.h</itemPath>
       <itemPath>metodoPotencia.h</itemPath>
+      <itemPath>ppmloader.h</itemPath>
       <itemPath>typedefs.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -22,6 +23,7 @@
       <itemPath>knn.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>metodoPotencia.cpp</itemPath>
+      <itemPath>ppmloader.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -34,9 +36,10 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
-    <itemPath>ppmloader.cpp</itemPath>
-    <itemPath>ppmloader.h</itemPath>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>ImagenesCaras</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="1">
