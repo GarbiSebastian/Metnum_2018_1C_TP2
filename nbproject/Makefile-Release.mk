@@ -38,7 +38,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/funciones.o \
 	${OBJECTDIR}/knn.o \
 	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/metodoPotencia.o
+	${OBJECTDIR}/metodoPotencia.o \
+	${OBJECTDIR}/ppmloader.o
 
 
 # C Compiler Flags
@@ -84,6 +85,11 @@ ${OBJECTDIR}/metodoPotencia.o: metodoPotencia.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/metodoPotencia.o metodoPotencia.cpp
+
+${OBJECTDIR}/ppmloader.o: ppmloader.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ppmloader.o ppmloader.cpp
 
 # Subprojects
 .build-subprojects:

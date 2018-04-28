@@ -84,3 +84,8 @@ nbactions.xml
 
 
 # End of https://www.gitignore.io/api/c,c++,netbeans
+
+tp/archivos_tp2/
+tp/archivos_tp2.zip
+ImagenesCarasRed/
+ImagenesCaras/
