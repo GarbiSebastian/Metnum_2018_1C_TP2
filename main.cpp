@@ -8,7 +8,11 @@ using namespace std;
 
 /*
  * Modo de uso:
- * 
+ * ./tp2
+ * -m <method> 0: kNN , 1: PCA + kNN
+ * -i <train_set> 
+ * -q <test_set>
+ * -o <classif>
  */
 int main(int argc, char** argv) {
 
