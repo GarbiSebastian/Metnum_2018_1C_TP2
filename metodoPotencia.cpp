@@ -32,7 +32,7 @@ double metodoPotencia(matrizReal &B, vectorReal &v, int niter, double epsilon) {
 	double normaCuadrada = pow(norma2(v),2);
 	vectorReal Bv = A_por_v(B,v);
 	//return productoInterno(v,Bv);//producto interno entre v y Bv
-	//Devolver λ, v .
+	//Devolver lambda v .
 	return productoInterno(v,Bv)/normaCuadrada;
 }
 
