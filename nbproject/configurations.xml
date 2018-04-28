@@ -5,6 +5,9 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>funciones.h</itemPath>
+      <itemPath>imprimir.h</itemPath>
+      <itemPath>knn.h</itemPath>
+      <itemPath>metodoPotencia.h</itemPath>
       <itemPath>typedefs.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -15,7 +18,9 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>funciones.cpp</itemPath>
+      <itemPath>knn.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
+      <itemPath>metodoPotencia.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -46,7 +51,17 @@
       </item>
       <item path="funciones.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="imprimir.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="knn.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="knn.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="metodoPotencia.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="metodoPotencia.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="typedefs.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -76,7 +91,17 @@
       </item>
       <item path="funciones.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="imprimir.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="knn.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="knn.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="metodoPotencia.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="metodoPotencia.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="typedefs.h" ex="false" tool="3" flavor2="0">
       </item>

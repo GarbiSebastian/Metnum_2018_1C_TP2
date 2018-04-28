@@ -36,7 +36,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/funciones.o \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/knn.o \
+	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/metodoPotencia.o
 
 
 # C Compiler Flags
@@ -68,10 +70,20 @@ ${OBJECTDIR}/funciones.o: funciones.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/funciones.o funciones.cpp
 
+${OBJECTDIR}/knn.o: knn.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/knn.o knn.cpp
+
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/metodoPotencia.o: metodoPotencia.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/metodoPotencia.o metodoPotencia.cpp
 
 # Subprojects
 .build-subprojects:

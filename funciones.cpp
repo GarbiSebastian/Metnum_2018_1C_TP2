@@ -32,6 +32,10 @@ double norma2_infinito(vectorReal v){
     return norma*normaI;    
 }
 
+double norma2(vectorReal v){
+    return norma2_infinito(v);
+}
+
 void normalizar_original(vectorReal &v){
 	double norma = norma2_original(v);
 	for(unsigned int i = 0; i < v.size();i++){
@@ -44,6 +48,10 @@ void normalizar_infinito(vectorReal &v){
 	for(unsigned int i = 0; i < v.size();i++){
 		v[i]= v[i]/norma;
 	}
+}
+
+void normalizar(vectorReal &v){
+	normalizar_infinito(v);
 }
 
 vectorReal resta(vectorReal &x, vectorReal &y) {
@@ -78,4 +86,15 @@ vectorReal centrarRespectoALaMedia(matrizReal &A){
 		}
 	}
 	return media;
+}
+
+vectorReal A_por_v(matrizReal& A, vectorReal& v) {
+	int n = A.size();
+	int m = A[0].size();
+	assert(m == v.size());
+	vectorReal resultado(n, 0.0);
+	for (int i = 0; i < n; i++) {
+		resultado[i] = productoInterno(A[i],v);
+	}
+	return resultado;
 }
