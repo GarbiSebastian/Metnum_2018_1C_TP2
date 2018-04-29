@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=GNU-Linux
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux
-CND_ARTIFACT_NAME_Debug=metnum_2018_1c_tp2
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux/metnum_2018_1c_tp2
+CND_ARTIFACT_NAME_Debug=mntp2
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux/mntp2
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux/package
-CND_PACKAGE_NAME_Debug=metnum20181ctp2.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux/package/metnum20181ctp2.tar
+CND_PACKAGE_NAME_Debug=mntp2.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux/package/mntp2.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-Linux
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux
-CND_ARTIFACT_NAME_Release=metnum_2018_1c_tp2
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux/metnum_2018_1c_tp2
+CND_ARTIFACT_NAME_Release=mntp2
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux/mntp2
 CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux/package
-CND_PACKAGE_NAME_Release=metnum20181ctp2.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux/package/metnum20181ctp2.tar
+CND_PACKAGE_NAME_Release=mntp2.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux/package/mntp2.tar
 #
 # include compiler specific variables
 #

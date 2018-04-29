@@ -4,11 +4,11 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>constantes.h</itemPath>
       <itemPath>funciones.h</itemPath>
       <itemPath>imprimir.h</itemPath>
       <itemPath>knn.h</itemPath>
       <itemPath>metodoPotencia.h</itemPath>
+      <itemPath>pca.h</itemPath>
       <itemPath>typedefs.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -22,6 +22,7 @@
       <itemPath>knn.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>metodoPotencia.cpp</itemPath>
+      <itemPath>pca.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -34,8 +35,6 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
-    <itemPath>ppmloader.cpp</itemPath>
-    <itemPath>ppmloader.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -48,10 +47,10 @@
       <compileType>
         <ccTool>
           <standard>8</standard>
+          <commandlineTool>g++</commandlineTool>
+          <warningLevel>2</warningLevel>
         </ccTool>
       </compileType>
-      <item path="constantes.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="funciones.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="funciones.h" ex="false" tool="3" flavor2="0">
@@ -68,9 +67,9 @@
       </item>
       <item path="metodoPotencia.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="ppmloader.cpp" ex="false" tool="1" flavor2="0">
+      <item path="pca.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="ppmloader.h" ex="false" tool="3" flavor2="0">
+      <item path="pca.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="typedefs.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -96,8 +95,6 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="constantes.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="funciones.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="funciones.h" ex="false" tool="3" flavor2="0">
@@ -114,9 +111,9 @@
       </item>
       <item path="metodoPotencia.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="ppmloader.cpp" ex="false" tool="1" flavor2="0">
+      <item path="pca.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="ppmloader.h" ex="false" tool="3" flavor2="0">
+      <item path="pca.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="typedefs.h" ex="false" tool="3" flavor2="0">
       </item>

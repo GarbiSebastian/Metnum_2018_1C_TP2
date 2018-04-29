@@ -39,7 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/knn.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/metodoPotencia.o \
-	${OBJECTDIR}/ppmloader.o
+	${OBJECTDIR}/pca.o
 
 
 # C Compiler Flags
@@ -60,11 +60,11 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/metnum_2018_1c_tp2
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mntp2
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/metnum_2018_1c_tp2: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mntp2: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/metnum_2018_1c_tp2 ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mntp2 ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/funciones.o: funciones.cpp
 	${MKDIR} -p ${OBJECTDIR}
@@ -86,10 +86,10 @@ ${OBJECTDIR}/metodoPotencia.o: metodoPotencia.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/metodoPotencia.o metodoPotencia.cpp
 
-${OBJECTDIR}/ppmloader.o: ppmloader.cpp
+${OBJECTDIR}/pca.o: pca.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ppmloader.o ppmloader.cpp
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pca.o pca.cpp
 
 # Subprojects
 .build-subprojects:
