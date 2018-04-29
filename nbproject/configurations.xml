@@ -9,6 +9,7 @@
       <itemPath>knn.h</itemPath>
       <itemPath>metodoPotencia.h</itemPath>
       <itemPath>pca.h</itemPath>
+      <itemPath>ppmloader.h</itemPath>
       <itemPath>typedefs.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -23,6 +24,7 @@
       <itemPath>main.cpp</itemPath>
       <itemPath>metodoPotencia.cpp</itemPath>
       <itemPath>pca.cpp</itemPath>
+      <itemPath>ppmloader.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -36,6 +38,9 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>ImagenesCaras</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="1">
