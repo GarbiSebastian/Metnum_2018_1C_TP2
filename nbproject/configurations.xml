@@ -15,6 +15,9 @@
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
+      <itemPath>baseCaras.csv</itemPath>
+      <itemPath>baseCarasRed.csv</itemPath>
+      <itemPath>comando_para_listado.sh</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -53,6 +56,12 @@
           <standard>8</standard>
         </ccTool>
       </compileType>
+      <item path="baseCaras.csv" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="baseCarasRed.csv" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="comando_para_listado.sh" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="constantes.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="funciones.cpp" ex="false" tool="1" flavor2="0">
@@ -99,6 +108,12 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="baseCaras.csv" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="baseCarasRed.csv" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="comando_para_listado.sh" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="constantes.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="funciones.cpp" ex="false" tool="1" flavor2="0">
