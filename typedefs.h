@@ -1,4 +1,7 @@
 #include <vector>
+#include <tuple>
+#include <list>
+#include <string>
 
 using namespace std;
 
@@ -8,3 +11,6 @@ typedef vector< vectorEntero > matrizEntero;
 typedef double real;
 typedef vector< real > vectorReal;
 typedef vector< vectorReal > matrizReal;
+
+typedef tuple<string, int> imagen;
+typedef list< imagen > listaImagenes;

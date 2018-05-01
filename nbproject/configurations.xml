@@ -9,15 +9,15 @@
       <itemPath>imprimir.h</itemPath>
       <itemPath>knn.h</itemPath>
       <itemPath>metodoPotencia.h</itemPath>
+      <itemPath>pca.h</itemPath>
       <itemPath>ppmloader.h</itemPath>
       <itemPath>typedefs.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
-      <itemPath>baseCaras.csv</itemPath>
-      <itemPath>baseCarasRed.csv</itemPath>
-      <itemPath>comando_para_listado.sh</itemPath>
+      <itemPath>armarBases.sh</itemPath>
+      <itemPath>folding.sh</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -26,6 +26,7 @@
       <itemPath>knn.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>metodoPotencia.cpp</itemPath>
+      <itemPath>pca.cpp</itemPath>
       <itemPath>ppmloader.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -54,15 +55,15 @@
       <compileType>
         <ccTool>
           <standard>8</standard>
+          <commandlineTool>g++</commandlineTool>
+          <warningLevel>2</warningLevel>
         </ccTool>
       </compileType>
-      <item path="baseCaras.csv" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="baseCarasRed.csv" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="comando_para_listado.sh" ex="false" tool="3" flavor2="0">
+      <item path="armarBases.sh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="constantes.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="folding.sh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="funciones.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -79,6 +80,10 @@
       <item path="metodoPotencia.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="metodoPotencia.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="pca.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="pca.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="ppmloader.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -108,13 +113,11 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="baseCaras.csv" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="baseCarasRed.csv" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="comando_para_listado.sh" ex="false" tool="3" flavor2="0">
+      <item path="armarBases.sh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="constantes.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="folding.sh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="funciones.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -131,6 +134,10 @@
       <item path="metodoPotencia.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="metodoPotencia.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="pca.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="pca.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="ppmloader.cpp" ex="false" tool="1" flavor2="0">
       </item>

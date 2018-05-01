@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/knn.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/metodoPotencia.o \
+	${OBJECTDIR}/pca.o \
 	${OBJECTDIR}/ppmloader.o
 
 
@@ -85,6 +86,11 @@ ${OBJECTDIR}/metodoPotencia.o: metodoPotencia.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/metodoPotencia.o metodoPotencia.cpp
+
+${OBJECTDIR}/pca.o: pca.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pca.o pca.cpp
 
 ${OBJECTDIR}/ppmloader.o: ppmloader.cpp
 	${MKDIR} -p ${OBJECTDIR}
