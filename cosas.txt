@@ -1,0 +1,2 @@
+cat pruebas/fold_tam_1/fold_nro_1/train.csv | sed -r -e 's#.*s([0-9]+)/.* ([0-9]+),$#\1 \2#' | python resultados.py 
+
