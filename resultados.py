@@ -2,7 +2,8 @@ import fileinput
 import numpy
 import Gnuplot
 
-sujetos, casos = 41, 4;
+sujetos = 41
+casos = 4
 
 TP=0
 FP=1
@@ -47,25 +48,58 @@ print(x,flush=True)"""
 
 g = Gnuplot.Gnuplot()
 g.title("Resultados")
-g("set xtics 1")
-g("set xrange [1:41]")
-
 g.xlabel("Sujetos")
 g.ylabel("Resultados")
 
+#g("set terminal png giant font 'Helvetica' 16")
+g("set terminal png size 1000, 500")
+g("set key below")
+
+g("set grid y")
+
+g("set style data histograms")
+g("set style histogram rowstacked")
+g("set boxwidth 0.5")
+g("set style fill solid 1.0 border -1")
+
+g("set ytics 10 nomirror")
+g("set yrange [0:100]")
+g("set ytics 10")
+
+g("set xtics 1")
+#g("set xtic 1")
+xtics=", ".join(["'"+str(i+1)+"' "+str(i) for i in range(sujetos)])
+#print xtics
+
+g("set xtics("+xtics+")")
+
+
+g("set xrange [-1:41]")
+#g("xspan = GPVAL_DATA_X_MAX - GPVAL_DATA_X_MIN")
+g("xequiv=100")
+
+
 x1=range(sujetos)
-y1=[datos(i,tipo=TP) for i in x1]
-y2=[datos(i,tipo=FP) for i in x1]
-y3=[datos(i,tipo=TN)/(total- x_sujetos[i]) for i in x1]
-y4=[datos(i,tipo=FN) for i in x1]
+xlabels=[i+1 for i in x1]
+y1=[ (float(datos(i,tipo=TP))/x_sujetos[i])*100 for i in x1]
+y2=[ (float(datos(i,tipo=FP))/(total- x_sujetos[i]))*100 for i in x1]
+y3=[ (float(datos(i,tipo=TN))/(total- x_sujetos[i]))*100 for i in x1]
+y4=[ (float(datos(i,tipo=FN))/x_sujetos[i])*100 for i in x1]
+
+"""print x1
+print x_sujetos
 print y1
 print y2
 print y3
-print y4
-d1 = Gnuplot.Data(x1,y1,with_="boxes fill pattern 1 lc 1",title="True Positives")
-d2 = Gnuplot.Data(x1,y3,with_="boxes fill pattern 2 lc 2",title="False Positives")
+print y4"""
 
+d1 = Gnuplot.Data(xlabels,y1,using="2",title="Positivos correctos")
+d2 = Gnuplot.Data(xlabels,y2,using="2",title="Positivos incorrectos")
+d3 = Gnuplot.Data(xlabels,y3,using="2",title="Negativos correctos")
+d4 = Gnuplot.Data(xlabels,y4,using="2",title="Negativos incorrectos")
 
-g.plot(d1,d2)
-g.hardcopy(filename='algo.png',terminal='png')
+g("set output 'resultados_TP_FN.png'")
+g.plot(d1,d4)
+g("set output 'resultados_FP_TN.png'")
+g.plot(d2,d3)
 del g
