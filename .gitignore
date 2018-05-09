@@ -92,3 +92,6 @@ ImagenesCaras/
 bases/
 tests/
 pruebas/
+resultados_TN_FP\.png
+
+resultados_TP_FN\.png
