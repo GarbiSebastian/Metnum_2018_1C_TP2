@@ -13,3 +13,4 @@ typedef vector< vectorReal > matrizReal;
 
 typedef tuple<std::string, int> imagen;
 typedef list< imagen > listaImagenes;
+typedef unsigned char uchar;

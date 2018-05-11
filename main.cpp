@@ -7,6 +7,7 @@
 #include "typedefs.h"
 #include "imprimir.h"
 #include "metodoPotencia.h"
+#include "ppmloader.h"
 
 using namespace std;
 
@@ -32,6 +33,7 @@ bool debug = true;
 void cargarDatosDeEntrada(int argc, char** argv);
 void leerCSV(string path, listaImagenes &lista);
 void escribirCSV(string path, listaImagenes lista);
+void leerImagn(string path);
 /*
  * Modo de uso:
  * ./tp2
@@ -42,7 +44,8 @@ void escribirCSV(string path, listaImagenes lista);
  */
 int main(int argc, char** argv) {
 
-    cargarDatosDeEntrada(argc, argv);
+    //cargarDatosDeEntrada(argc, argv);
+    leerImagn("E:\\Metodos Numericos 2018\\Metnum_2018_1C_TP2\\tp\\1.pgm");
     return 0;
 }
 
@@ -119,3 +122,41 @@ void escribirCSV(string path, listaImagenes lista){
         archivo << get<0>(img) << ", " << get<1>(img) << ", " << endl;
     archivo.close();
 }
+
+
+void leerImagn(string path)
+{
+    uchar* data = NULL;
+    string tipo;
+    int ancho = 0, alto = 0, nivelesDeGrices = 0;
+    PPM_LOADER_PIXEL_TYPE pt = PPM_LOADER_PIXEL_TYPE_INVALID;
+    string filename = path;
+    
+    ifstream archivo;
+    archivo.open(filename);
+    
+    archivo >> tipo;
+    archivo >> ancho;
+    archivo >> alto;
+    archivo >> nivelesDeGrices;
+    //getline(archivo,data);
+    //archivo >> data;
+    
+    cout << "Tipo: " << tipo << "Tendria que ser P5" << endl;
+    cout << "Ancho: " << ancho << "Tendria que ser 92" << endl;
+    cout << "Alto: " << alto << "Tendria que ser 112" << endl;
+    cout << "NivelesDeGrices: " << nivelesDeGrices << "Tendria que ser 255" << endl;
+    
+    
+    bool ret = LoadPPMFile(&data, &ancho, &alto, &pt, filename.c_str());
+    cout << "Bool " << ret << endl;
+    cout << "ancho " << ancho << endl;
+    cout << "alto " << alto << endl;
+    cout << "pt " << pt << endl;
+    cout << "filename " << filename << endl;
+    if (!ret || ancho == 0|| alto == 0|| pt!=PPM_LOADER_PIXEL_TYPE_RGB_8B)
+    {
+        cout << "boom" << endl;
+    } 
+    cout << "ok" << endl;
+} 
