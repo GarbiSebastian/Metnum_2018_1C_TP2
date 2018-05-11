@@ -89,3 +89,9 @@ tp/archivos_tp2/
 tp/archivos_tp2.zip
 ImagenesCarasRed/
 ImagenesCaras/
+bases/
+tests/
+pruebas/
+resultados_TN_FP\.png
+
+resultados_TP_FN\.png

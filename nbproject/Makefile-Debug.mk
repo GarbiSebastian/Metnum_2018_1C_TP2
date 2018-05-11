@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/knn.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/metodoPotencia.o \
+	${OBJECTDIR}/pca.o \
 	${OBJECTDIR}/ppmloader.o
 
 
@@ -69,27 +70,32 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/metnum_2018_1c_tp2: ${OBJECTFILES}
 ${OBJECTDIR}/funciones.o: funciones.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/funciones.o funciones.cpp
+	$(COMPILE.cc) -g -Wall -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/funciones.o funciones.cpp
 
 ${OBJECTDIR}/knn.o: knn.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/knn.o knn.cpp
+	$(COMPILE.cc) -g -Wall -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/knn.o knn.cpp
 
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -Wall -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 ${OBJECTDIR}/metodoPotencia.o: metodoPotencia.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/metodoPotencia.o metodoPotencia.cpp
+	$(COMPILE.cc) -g -Wall -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/metodoPotencia.o metodoPotencia.cpp
+
+${OBJECTDIR}/pca.o: pca.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pca.o pca.cpp
 
 ${OBJECTDIR}/ppmloader.o: ppmloader.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ppmloader.o ppmloader.cpp
+	$(COMPILE.cc) -g -Wall -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ppmloader.o ppmloader.cpp
 
 # Subprojects
 .build-subprojects:
