@@ -18,11 +18,13 @@ const string identMetodo = "-m";
 const string identTrain = "-i";
 const string identTest = "-q";
 const string identResult = "-o";
+const string identK_vecinos = "-k";
+const string identAlfa_componentes = "-a";
 const int mestodoKNN = 0;
 const int metodoPSA = 1;
 const char delimitador = ',';
 
-int metodo;
+int metodo = -1;
 string pathTrain;
 string pathTest;
 string pathResult;
@@ -66,18 +68,25 @@ void agregarAMatrizPCA(uchar* data, int tam, int pos, bool esTest);
  * -m 0 -i train.csv -qtest.csv -o salida.csv 
  * 
  */
-void test1(){
-    matrizReal A(2,vectorReal(3,1));
+void test1() {
+    matrizReal A(2, vectorReal(3, 1));
     A[1][2] = 9;
     A[0][0] = 8;
     matrizReal B = matrizCovarianzas(A);
-    for(unsigned int i = 0; i < B.size(); i++){
+    for (unsigned int i = 0; i < B.size(); i++) {
         imprimir(B[i]);
     }
 }
+
 int main(int argc, char** argv) {
-    test1();
-    return 0;
+    //test1();
+    //return 0;
+
+    if (argc < 8) {
+        cout << "Error de cantidad de parametros" << endl;
+        exit(0);
+    }
+
     cargarDatosDeEntrada(argc, argv);
     inicializarMatriz(listaTrain.size(), listaTest.size());
 
@@ -99,7 +108,7 @@ int main(int argc, char** argv) {
         idImagenesTest[pos] = get<1>(img);
         pos++;
     }
-    
+
     if (debug) {
         cout << "Vector Train" << endl;
         for (unsigned int i = 0; i < pathImagenesTrain.size(); i++) {
@@ -112,29 +121,28 @@ int main(int argc, char** argv) {
     }
     vectorReal distancias;
     vector<int> indices;
-    switch(metodo){
+    switch (metodo) {
         case 0:// KNN
-            for(unsigned int i = 0;i<matrizKNNTest.size();i++){
-                buscar(k_vecinos,matrizKNNTrain,matrizKNNTest[i],indices,distancias);
-                listaResult.push_back(imagen(pathImagenesTest[i], votar(41,idImagenesTrain,indices,distancias)));
-                cout << pathImagenesTest[i] << " " << (int)idImagenesTest[i] << " " << votar(41,idImagenesTrain,indices,distancias) << endl;
+            for (unsigned int i = 0; i < matrizKNNTest.size(); i++) {
+                buscar(k_vecinos, matrizKNNTrain, matrizKNNTest[i], indices, distancias);
+                listaResult.push_back(imagen(pathImagenesTest[i], votar(41, idImagenesTrain, indices, distancias)));
+                if (debug) cout << pathImagenesTest[i] << " " << (int) idImagenesTest[i] << " " << votar(41, idImagenesTrain, indices, distancias) << endl;
             }
             break;
         case 1:// PCA + KNN
-            for(unsigned int i = 0;i<matrizKNNTest.size();i++){
-//                matrizReal Vt = obtenerAlfaVectores(matrizCovarianzas(matrizPCATrain),alfa_componentes);
-//                buscar(k_vecinos,tc(Vt,matrizPCATrain),tc(Vt,matrizPCATest)[i],indices,distancias);
-//                listaResult.push_back(imagen(pathImagenesTest[i], votar(41,idImagenesTrain,indices,distancias)));
-//                cout << pathImagenesTest[i] << " " << (int)idImagenesTest[i] << " " << votar(41,idImagenesTrain,indices,distancias) << endl;
+            for (unsigned int i = 0; i < matrizKNNTest.size(); i++) {
+                //                matrizReal Vt = obtenerAlfaVectores(matrizCovarianzas(matrizPCATrain),alfa_componentes);
+                //                buscar(k_vecinos,tc(Vt,matrizPCATrain),tc(Vt,matrizPCATest)[i],indices,distancias);
+                //                listaResult.push_back(imagen(pathImagenesTest[i], votar(41,idImagenesTrain,indices,distancias)));
+                //                cout << pathImagenesTest[i] << " " << (int)idImagenesTest[i] << " " << votar(41,idImagenesTrain,indices,distancias) << endl;
             }
             break;
     }
-    
-    cout << listaResult.size();
-    escribirCSV(pathResult,listaResult);
+
+    if (debug) cout << "listaResult.size(): " << listaResult.size() << endl;;
+    escribirCSV(pathResult, listaResult);
 
     cout << "Fin" << endl;
-    //leerImagn("E:\\Metodos Numericos 2018\\Metnum_2018_1C_TP2\\tp\\1.pgm");
     //guardarImagen();
     return 0;
 }
@@ -151,30 +159,50 @@ void cargarDatosDeEntrada(int argc, char** argv) {
             pathTest = argv[++i];
         } else if (val == identResult) {
             pathResult = argv[++i];
+        } else if (val == identK_vecinos) {
+            k_vecinos = atoi(argv[++i]);
+        } else if (val == identAlfa_componentes) {
+            alfa_componentes = atoi(argv[++i]);
         }
     }
 
-    if (debug) {
-        cout << "metodo: " << metodo << endl;
-        cout << "pathTrain: " << pathTrain << endl;
-        cout << "pathTest: " << pathTest << endl;
-        cout << "pathResult: " << pathResult << endl;
-    }
+    if (pathTrain.empty()) {
+        cout << "No se a indicado el archivo Train." << endl;
+        exit(0);
+    } else if (pathTest.empty()) {
+        cout << "No se a indicado el archivo Test." << endl;
+        exit(0);
+    } else if (pathResult.empty()) {
+        cout << "No se a indicado el archivo Result." << endl;
+        exit(0);
+    } else if (metodo == -1) {
+        cout << "No se a indicado el metodo a utilizar." << endl;
+        exit(0);
+    } else {
+        if (true) {
+        //if (debug) {
+            cout << "metodo: " << metodo << endl;
+            cout << "pathTrain: " << pathTrain << endl;
+            cout << "pathTest: " << pathTest << endl;
+            cout << "pathResult: " << pathResult << endl;
+            cout << "k_vecinos: " << k_vecinos << endl;
+            cout << "alfa_componentes: " << alfa_componentes << endl;
+        }
 
-    leerCSV(pathTrain, listaTrain);
-    //escribirCSV(pathResult, listaTrain);
-    leerCSV(pathTest, listaTest);
+        leerCSV(pathTrain, listaTrain);
+        leerCSV(pathTest, listaTest);
 
-    if (debug) {
-        cout << "listaTrain" << endl;
-        for (imagen img : listaTrain)
-            if (debug) cout << "pathImagen: " << get<0>(img) << " idImagen: " << get<1>(img) << endl;
-        cout << "listaTest" << endl;
-        for (imagen img : listaTest)
-            if (debug) cout << "pathImagen: " << get<0>(img) << " idImagen: " << get<1>(img) << endl;
-        cout << "listaResult" << endl;
-        for (imagen img : listaResult)
-            if (debug) cout << "pathImagen: " << get<0>(img) << " idImagen: " << get<1>(img) << endl;
+        if (debug) {
+            cout << "listaTrain" << endl;
+            for (imagen img : listaTrain)
+                if (debug) cout << "pathImagen: " << get<0>(img) << " idImagen: " << get<1>(img) << endl;
+            cout << "listaTest" << endl;
+            for (imagen img : listaTest)
+                if (debug) cout << "pathImagen: " << get<0>(img) << " idImagen: " << get<1>(img) << endl;
+            cout << "listaResult" << endl;
+            for (imagen img : listaResult)
+                if (debug) cout << "pathImagen: " << get<0>(img) << " idImagen: " << get<1>(img) << endl;
+        }
     }
 }
 
