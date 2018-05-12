@@ -52,7 +52,7 @@ void normalizar_infinito(vectorReal &v) {
 }
 
 void normalizar(vectorReal &v) {
-    normalizar_infinito(v);
+    normalizar_original(v);
 }
 
 vectorReal resta(vectorReal &x, vectorReal &y) {
@@ -75,6 +75,7 @@ vectorReal centrarRespectoALaMedia(matrizReal &A) {
     //A es de m*n
     unsigned int m = A.size();
     unsigned int n = A[0].size();
+    double raiz_m_menos_uno = sqrt(m-1);
     vectorReal media(n, 0);
     for (unsigned int i = 0; i < m; i++) {
         for (unsigned int j = 0; j < n; j++) {
@@ -83,7 +84,7 @@ vectorReal centrarRespectoALaMedia(matrizReal &A) {
     }
     for (unsigned int i = 0; i < m; i++) {
         for (unsigned int j = 0; j < n; j++) {
-            A[i][j] = A[i][j] - media[j];
+            A[i][j] = (A[i][j] - media[j])/raiz_m_menos_uno;
         }
     }
     return media;
