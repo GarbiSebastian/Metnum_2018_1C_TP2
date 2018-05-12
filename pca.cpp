@@ -15,10 +15,24 @@
 
 #include "pca.h"
 
+void A_menos_vvt(matrizReal &A, vectorReal &v) {
+	assert(0 < v.size());
+	assert(A.size() == v.size());
+	assert(A[0].size() == v.size());
+	unsigned int m = A.size();
+
+	for (unsigned int i = 0; i < m; i++) {
+		for (unsigned int j = 0; j < m; j++) {
+			A[i][j] = A[i][j] - v[i] * v[j];
+		}
+	}
+}
+
 matrizReal matrizCovarianzas(matrizReal &imagenes) {
 	assert(imagenes.size() > 0);
-	centrarRespectoALaMedia(imagenes);
-	return multiplicarPorTranspuesta(imagenes);
+        
+        matrizReal B = centrarRespectoALaMedia(imagenes);
+	return multiplicarPorTranspuesta(B);
 }
 
 matrizReal obtenerAlfaVectores(matrizReal &A, unsigned int alfa) {
@@ -36,15 +50,4 @@ matrizReal obtenerAlfaVectores(matrizReal &A, unsigned int alfa) {
 	return res;
 }
 
-void A_menos_vvt(matrizReal &A, vectorReal &v) {
-	assert(0 < v.size());
-	assert(A.size() == v.size());
-	assert(A[0].size() == v.size());
-	unsigned int m = A.size();
 
-	for (unsigned int i = 0; i < m; i++) {
-		for (unsigned int j = 0; j < m; j++) {
-			A[i][j] = A[i][j] - v[i] * v[j];
-		}
-	}
-}

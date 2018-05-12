@@ -56,8 +56,15 @@ void normalizar(vectorReal &v) {
 }
 
 vectorReal resta(vectorReal &x, vectorReal &y) {
-    //assert(x.size()==y.size());
+    assert(x.size()==y.size());
     vectorReal tmp(x.size(), 0.0);
+    for (unsigned int i = 0; i < x.size(); i++) tmp[i] = (x[i] - y[i]);
+    return tmp;
+}
+
+vectorReal resta(vectorUchar &x, vectorUchar &y) {
+    assert(x.size()==y.size());
+    vectorReal tmp(x.size(), 0);
     for (unsigned int i = 0; i < x.size(); i++) tmp[i] = (x[i] - y[i]);
     return tmp;
 }
@@ -71,10 +78,11 @@ double productoInterno(vectorReal &u, vectorReal &v) {
     return sum;
 }
 
-vectorReal centrarRespectoALaMedia(matrizReal &A) {
+matrizReal centrarRespectoALaMedia(matrizReal &A) {
     //A es de m*n
     unsigned int m = A.size();
     unsigned int n = A[0].size();
+    matrizReal B(A.size(),vectorReal(A[0].size(),0));
     double raiz_m_menos_uno = sqrt(m-1);
     vectorReal media(n, 0);
     for (unsigned int i = 0; i < m; i++) {
@@ -84,10 +92,10 @@ vectorReal centrarRespectoALaMedia(matrizReal &A) {
     }
     for (unsigned int i = 0; i < m; i++) {
         for (unsigned int j = 0; j < n; j++) {
-            A[i][j] = (A[i][j] - media[j])/raiz_m_menos_uno;
+            B[i][j] = (A[i][j] - media[j])/raiz_m_menos_uno;
         }
     }
-    return media;
+    return B;
 }
 
 vectorReal A_por_v(matrizReal& A, vectorReal& v) {
@@ -106,11 +114,11 @@ matrizReal multiplicarPorTranspuesta(matrizReal &A) {
     assert(A[0].size() > 0);
     unsigned int n = A.size();
     unsigned int m = A[0].size();
-    matrizReal res = matrizReal(n, vectorReal(n, 0));
-    for (unsigned int i = 0; i < n; i++) {
-        for (unsigned int j = 0; j < n; j++) {
-            for (unsigned int k = 0; k < m; k++) {
-                res[i][j] += A[i][k] * A[j][k];
+    matrizReal res = matrizReal(m, vectorReal(m, 0));
+    for (unsigned int i = 0; i < m; i++) {
+        for (unsigned int j = 0; j < m; j++) {
+            for (unsigned int k = 0; k < n; k++) {
+                res[i][j] += A[k][i] * A[k][j];
             }
         }
     }

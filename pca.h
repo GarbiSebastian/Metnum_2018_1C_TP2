@@ -19,6 +19,6 @@
 
 matrizReal matrizCovarianzas(matrizReal &imagenes);
 matrizReal obtenerAlfaVectores(matrizReal &A, unsigned int alfa);
-void A_menos_vvt(matrizReal &A, vectorReal &v);
+//void A_menos_vvt(matrizReal &A, vectorReal &v);
 
 #endif /* PCA_H */

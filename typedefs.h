@@ -6,8 +6,10 @@ using namespace std;
 
 typedef unsigned char uchar;
 
-typedef vector< uchar > vectorEntero;
-typedef vector< vectorEntero > matrizEntero;
+typedef vector< int > vectorEntero;
+
+typedef vector< uchar > vectorUchar;
+typedef vector< vectorUchar > matrizUchar;
 
 typedef double real;
 typedef vector< real > vectorReal;

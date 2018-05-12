@@ -8,6 +8,8 @@
 #include "imprimir.h"
 #include "metodoPotencia.h"
 #include "ppmloader.h"
+#include "knn.h"
+#include "pca.h"
 
 using namespace std;
 
@@ -28,19 +30,30 @@ string pathResult;
 listaImagenes listaTrain;
 listaImagenes listaTest;
 listaImagenes listaResult;
-matrizEntero matrizKNN;
-matrizReal matrizPSA;
 
-bool debug = true;
+vector<string> pathImagenesTrain;
+vector<string> pathImagenesTest;
+vectorUchar idImagenesTrain;
+vectorUchar idImagenesTest;
+
+matrizUchar matrizKNNTrain;
+matrizUchar matrizKNNTest;
+matrizReal matrizPCATrain;
+matrizReal matrizPCATest;
+
+bool debug = false;
+unsigned int k_vecinos = 3;
+unsigned int alfa_componentes = 5;
+
 
 void cargarDatosDeEntrada(int argc, char** argv);
 void leerCSV(string path, listaImagenes &lista);
 void escribirCSV(string path, listaImagenes lista);
-void leerImagn(string path, int pos);
-void inicializarMatriz(int tam);
-void agregarAMatriz(uchar* data, int tam, int pos);
-void agregarAMatrizKNN(uchar* data, int tam, int pos);
-void agregarAMatrizPSA(uchar* data, int tam, int pos);
+void leerImagn(string path, int pos, bool esTest);
+void inicializarMatriz(int tamTrain, int tamTest);
+void agregarAMatriz(uchar* data, int tam, int pos, bool esTest);
+void agregarAMatrizKNN(uchar* data, int tam, int pos, bool esTest);
+void agregarAMatrizPCA(uchar* data, int tam, int pos, bool esTest);
 
 /*
  * Modo de uso:
@@ -49,17 +62,78 @@ void agregarAMatrizPSA(uchar* data, int tam, int pos);
  * -i <train_set> 
  * -q <test_set>
  * -o <classif>
+ * 
+ * -m 0 -i train.csv -qtest.csv -o salida.csv 
+ * 
  */
+void test1(){
+    matrizReal A(2,vectorReal(3,1));
+    A[1][2] = 9;
+    A[0][0] = 8;
+    matrizReal B = matrizCovarianzas(A);
+    for(unsigned int i = 0; i < B.size(); i++){
+        imprimir(B[i]);
+    }
+}
 int main(int argc, char** argv) {
-
+    test1();
+    return 0;
     cargarDatosDeEntrada(argc, argv);
-    inicializarMatriz(listaTrain.size());
+    inicializarMatriz(listaTrain.size(), listaTest.size());
+
     int pos = 0;
+    if (debug) cout << "Lista Train" << endl;
     for (imagen img : listaTrain) {
         if (debug) cout << "pathImagen: " << get<0>(img) << " idImagen: " << get<1>(img) << " pos: " << pos << endl;
-        leerImagn(get<0>(img), ++pos);
+        leerImagn(get<0>(img), pos, false);
+        pathImagenesTrain[pos] = get<0>(img);
+        idImagenesTrain[pos] = get<1>(img);
+        pos++;
     }
+    if (debug) cout << "Lista test" << endl;
+    pos = 0;
+    for (imagen img : listaTest) {
+        if (debug) cout << "pathImagen: " << get<0>(img) << " idImagen: " << get<1>(img) << " pos: " << pos << endl;
+        leerImagn(get<0>(img), pos, true);
+        pathImagenesTest[pos] = get<0>(img);
+        idImagenesTest[pos] = get<1>(img);
+        pos++;
+    }
+    
+    if (debug) {
+        cout << "Vector Train" << endl;
+        for (unsigned int i = 0; i < pathImagenesTrain.size(); i++) {
+            cout << pathImagenesTrain[i] << " , " << idImagenesTrain[i] << endl;
+        }
+        cout << "Vector test" << endl;
+        for (unsigned int i = 0; i < pathImagenesTest.size(); i++) {
+            cout << pathImagenesTest[i] << " , " << idImagenesTest[i] << endl;
+        }
+    }
+    vectorReal distancias;
+    vector<int> indices;
+    switch(metodo){
+        case 0:// KNN
+            for(unsigned int i = 0;i<matrizKNNTest.size();i++){
+                buscar(k_vecinos,matrizKNNTrain,matrizKNNTest[i],indices,distancias);
+                listaResult.push_back(imagen(pathImagenesTest[i], votar(41,idImagenesTrain,indices,distancias)));
+                cout << pathImagenesTest[i] << " " << (int)idImagenesTest[i] << " " << votar(41,idImagenesTrain,indices,distancias) << endl;
+            }
+            break;
+        case 1:// PCA + KNN
+            for(unsigned int i = 0;i<matrizKNNTest.size();i++){
+//                matrizReal Vt = obtenerAlfaVectores(matrizCovarianzas(matrizPCATrain),alfa_componentes);
+//                buscar(k_vecinos,tc(Vt,matrizPCATrain),tc(Vt,matrizPCATest)[i],indices,distancias);
+//                listaResult.push_back(imagen(pathImagenesTest[i], votar(41,idImagenesTrain,indices,distancias)));
+//                cout << pathImagenesTest[i] << " " << (int)idImagenesTest[i] << " " << votar(41,idImagenesTrain,indices,distancias) << endl;
+            }
+            break;
+    }
+    
+    cout << listaResult.size();
+    escribirCSV(pathResult,listaResult);
 
+    cout << "Fin" << endl;
     //leerImagn("E:\\Metodos Numericos 2018\\Metnum_2018_1C_TP2\\tp\\1.pgm");
     //guardarImagen();
     return 0;
@@ -88,8 +162,8 @@ void cargarDatosDeEntrada(int argc, char** argv) {
     }
 
     leerCSV(pathTrain, listaTrain);
-    //escribirCSV(pathTest, listaTrain);
-    //leerCSV(pathTest, listaTest);
+    //escribirCSV(pathResult, listaTrain);
+    leerCSV(pathTest, listaTest);
 
     if (debug) {
         cout << "listaTrain" << endl;
@@ -133,12 +207,13 @@ void escribirCSV(string path, listaImagenes lista) {
 
     ofstream archivo;
     archivo.open(path.c_str());
-    for (imagen img : listaTrain)
+
+    for (imagen img : lista)
         archivo << get<0>(img) << ", " << get<1>(img) << ", " << endl;
     archivo.close();
 }
 
-void leerImagn(string path, int pos) {
+void leerImagn(string path, int pos, bool esTest) {
     uchar* data = NULL;
     int width = 0, height = 0;
     PPM_LOADER_PIXEL_TYPE pt = PPM_LOADER_PIXEL_TYPE_INVALID;
@@ -162,7 +237,7 @@ void leerImagn(string path, int pos) {
     }
     if (!ret || width == 0 || height == 0) assert(false);
 
-    agregarAMatriz(data, width*height, pos);
+    agregarAMatriz(data, width*height, pos, esTest);
 
     //delete [] data;
     /*char comments[100];
@@ -175,44 +250,60 @@ void leerImagn(string path, int pos) {
     }*/
 }
 
-void inicializarMatriz(int tam) {
+void inicializarMatriz(int tamTrain, int tamTest) {
+
+    if (debug) cout << "inicializarMatriz tamTrain: " << tamTrain << " tamTest: " << tamTest << endl;
+
+    pathImagenesTest = vector<string>(tamTest, "");
+    pathImagenesTrain = vector<string>(tamTrain, "");
+    idImagenesTrain = vectorUchar(tamTrain, 0);
+    idImagenesTest = vectorUchar(tamTest, 0);
+
     switch (metodo) {
         case mestodoKNN:
-            matrizKNN = matrizEntero(tam, vectorEntero(0, 0));
+            matrizKNNTrain = matrizUchar(tamTrain, vectorUchar(0, 0));
+            matrizKNNTest = matrizUchar(tamTest, vectorUchar(0, 0));
             break;
         case metodoPSA:
-            matrizPSA = matrizReal(tam, vectorReal(0, 0));
+            matrizPCATrain = matrizReal(tamTrain, vectorReal(0, 0));
+            matrizPCATest = matrizReal(tamTest, vectorReal(0, 0));
             break;
         default:
             break;
     }
 }
 
-void agregarAMatriz(uchar* data, int tam, int pos) {
-    switch (metodo){
+void agregarAMatriz(uchar* data, int tam, int pos, bool esTest) {
+    switch (metodo) {
         case mestodoKNN:
-            agregarAMatrizKNN(data, tam, pos);
+            agregarAMatrizKNN(data, tam, pos, esTest);
             break;
         case metodoPSA:
-            agregarAMatrizPSA(data, tam, pos);
+            agregarAMatrizPCA(data, tam, pos, esTest);
             break;
         default:
             break;
     }
 }
 
-void agregarAMatrizKNN(uchar* data, int tam, int pos) {
-    vectorEntero vectorUchar(tam, 0);
+void agregarAMatrizKNN(uchar* data, int tam, int pos, bool esTest) {
+
+    if (debug) cout << "agregarAMatrizKNN pos: " << pos << " tam: " << tam << endl;
+
+    vectorUchar vectorUchar(tam, 0);
     for (int i = 0; i < tam; i++) {
         vectorUchar[i] = data[i];
     }
-    matrizKNN[pos] = vectorUchar;
+    if (esTest) matrizKNNTest[pos] = vectorUchar;
+    else matrizKNNTrain[pos] = vectorUchar;
 }
 
-void agregarAMatrizPSA(uchar* data, int tam, int pos) {
+void agregarAMatrizPCA(uchar* data, int tam, int pos, bool esTest) {
+    if (debug) cout << "agregarAMatrizPCA pos: " << pos << " tam: " << tam << endl;
     vectorReal vectorDoble(tam, 0);
     for (int i = 0; i < tam; i++) {
         vectorDoble[i] = (double) data[i];
     }
-    matrizPSA[pos] = vectorDoble;
+    if (esTest)matrizPCATest[pos] = vectorDoble;
+    else matrizPCATrain[pos] = vectorDoble;
 }
