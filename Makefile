@@ -152,9 +152,11 @@ folds: bases
 			#echo $$fold_tam $$fold_nro; \
 			cat $(base) | head -n $$((fold_tam*fold_nro* $(sujetos) )) | tail -n $$((fold_tam*$(sujetos))) > $$fold_item/test.csv; \
 			cat $(base) $(base) | tail -n $$(( ($(imXsuj)*2-(fold_tam*fold_nro) )*$(sujetos))) | head -n $$(( ($(imXsuj)-fold_tam) * $(sujetos))) > $$fold_item/train.csv; \
-			./$(TP) -m 1 -i $$fold_item/train.csv -q $$fold_item/test.csv -o $$fold_item/classif.csv > $$fold_item/ejecucion.log 2> $$fold_item/error.log; \
+			./$(TP) -m 0 -i $$fold_item/train.csv -q $$fold_item/test.csv -o $$fold_item/knn_classif.csv > $$fold_item/knn_ejecucion.log 2> $$fold_item/knn_error.log; \
+			./$(TP) -m 1 -i $$fold_item/train.csv -q $$fold_item/test.csv -o $$fold_item/pca_classif.csv > $$fold_item/pca_ejecucion.log 2> $$fold_item/pca_error.log; \
 		done; \
 	done;
+	@echo "folds finalizados"
 
 # include project implementation makefile
 include nbproject/Makefile-impl.mk
