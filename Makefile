@@ -173,7 +173,7 @@ pca_knn_folds: folds tp
 		for iteracion in $$(seq -s' ' 1 $$k_fold); do \
 			fold_dir=$(TRAIN_TEST_DIR)/k_fold_$$k_fold/iteracion_$$iteracion;\
 			for k in 1 2 3 5 7 11; do \
-				for alfa in 1 2 3 5 7 10 20 30 50 70 100 200 300 500 700; do \
+				for alfa in 1 2 3 5 7 10 20 30 50 70 100 200 300; do \
 					dir=$(DIR_RESULTADOS)/pca_knn/k_$$k/alfa_$$alfa/k_fold_$$k_fold/iteracion_$$iteracion;\
 						$(MKDIR) -p $$dir;\
 						echo $$dir;\
