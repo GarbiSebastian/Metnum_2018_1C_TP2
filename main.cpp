@@ -14,15 +14,17 @@
 using namespace std;
 
 
-const string identMetodo = "-m";
-const string identTrain = "-i";
-const string identTest = "-q";
-const string identResult = "-o";
-const string identK_vecinos = "-k";
+const string identMetodo           = "-m";
+const string identTrain            = "-i";
+const string identTest             = "-q";
+const string identResult           = "-o";
+const string identK_vecinos        = "-k";
 const string identAlfa_componentes = "-a";
-const int mestodoKNN = 0;
+const int metodoKNN = 0;
 const int metodoPSA = 1;
 const char delimitador = ',';
+const int sujetos = 41;
+const int imagenesXsujeto=10;
 
 int metodo = -1;
 string pathTrain;
@@ -35,8 +37,8 @@ listaImagenes listaResult;
 
 vector<string> pathImagenesTrain;
 vector<string> pathImagenesTest;
-vectorUchar idImagenesTrain;
-vectorUchar idImagenesTest;
+vectorEntero idImagenesTrain;
+vectorEntero idImagenesTest;
 
 matrizUchar matrizKNNTrain;
 matrizUchar matrizKNNTest;
@@ -63,7 +65,9 @@ void agregarAMatrizPCA(uchar* data, int tam, int pos, bool esTest);
  * -m <method> 0: kNN , 1: PCA + kNN
  * -i <train_set> 
  * -q <test_set>
- * -o <classif>
+ * -o <resultado>
+ * -k <k vecinos>
+ * -a <alfa componentes principales>
  * 
  * -m 0 -i train.csv -qtest.csv -o salida.csv 
  * 
@@ -84,6 +88,7 @@ int main(int argc, char** argv) {
 
     if (argc < 8) {
         cout << "Error de cantidad de parametros" << endl;
+        cout << "modo de uso: ./tp2 -m <metodo> -i <train_set> -q <test_set> -o <resultado> [-k <k vecinos>] [-a <alfa componentes principales>]" << endl;
         exit(0);
     }
 
@@ -120,21 +125,21 @@ int main(int argc, char** argv) {
         }
     }
     vectorReal distancias;
-    vector<int> indices;
+    vectorEntero indices;
     switch (metodo) {
         case 0:// KNN
             for (unsigned int i = 0; i < matrizKNNTest.size(); i++) {
                 buscar(k_vecinos, matrizKNNTrain, matrizKNNTest[i], indices, distancias);
-                listaResult.push_back(imagen(pathImagenesTest[i], votar(41, idImagenesTrain, indices, distancias)));
-                if (debug) cout << pathImagenesTest[i] << " " << (int) idImagenesTest[i] << " " << votar(41, idImagenesTrain, indices, distancias) << endl;
+                listaResult.push_back(imagen(pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias)));
+                if (debug) cout << pathImagenesTest[i] << " " << (int) idImagenesTest[i] << " " << votar(sujetos, idImagenesTrain, indices, distancias) << endl;
             }
             break;
         case 1:// PCA + KNN
             for (unsigned int i = 0; i < matrizKNNTest.size(); i++) {
                 //                matrizReal Vt = obtenerAlfaVectores(matrizCovarianzas(matrizPCATrain),alfa_componentes);
                 //                buscar(k_vecinos,tc(Vt,matrizPCATrain),tc(Vt,matrizPCATest)[i],indices,distancias);
-                //                listaResult.push_back(imagen(pathImagenesTest[i], votar(41,idImagenesTrain,indices,distancias)));
-                //                cout << pathImagenesTest[i] << " " << (int)idImagenesTest[i] << " " << votar(41,idImagenesTrain,indices,distancias) << endl;
+                //                listaResult.push_back(imagen(pathImagenesTest[i], votar(sujetos,idImagenesTrain,indices,distancias)));
+                //                cout << pathImagenesTest[i] << " " << (int)idImagenesTest[i] << " " << votar(sujetos,idImagenesTrain,indices,distancias) << endl;
             }
             break;
     }
@@ -236,8 +241,10 @@ void escribirCSV(string path, listaImagenes lista) {
     ofstream archivo;
     archivo.open(path.c_str());
 
-    for (imagen img : lista)
+    for (imagen img : lista){
+//        cout << get<0>(img) << ", " << get<1>(img) << ", " << endl;
         archivo << get<0>(img) << ", " << get<1>(img) << ", " << endl;
+    }
     archivo.close();
 }
 
@@ -284,11 +291,11 @@ void inicializarMatriz(int tamTrain, int tamTest) {
 
     pathImagenesTest = vector<string>(tamTest, "");
     pathImagenesTrain = vector<string>(tamTrain, "");
-    idImagenesTrain = vectorUchar(tamTrain, 0);
-    idImagenesTest = vectorUchar(tamTest, 0);
+    idImagenesTrain = vectorEntero(tamTrain, 0);
+    idImagenesTest = vectorEntero(tamTest, 0);
 
     switch (metodo) {
-        case mestodoKNN:
+        case metodoKNN:
             matrizKNNTrain = matrizUchar(tamTrain, vectorUchar(0, 0));
             matrizKNNTest = matrizUchar(tamTest, vectorUchar(0, 0));
             break;
@@ -303,7 +310,7 @@ void inicializarMatriz(int tamTrain, int tamTest) {
 
 void agregarAMatriz(uchar* data, int tam, int pos, bool esTest) {
     switch (metodo) {
-        case mestodoKNN:
+        case metodoKNN:
             agregarAMatrizKNN(data, tam, pos, esTest);
             break;
         case metodoPSA:
