@@ -14,17 +14,17 @@
 using namespace std;
 
 
-const string identMetodo           = "-m";
-const string identTrain            = "-i";
-const string identTest             = "-q";
-const string identResult           = "-o";
-const string identK_vecinos        = "-k";
+const string identMetodo = "-m";
+const string identTrain = "-i";
+const string identTest = "-q";
+const string identResult = "-o";
+const string identK_vecinos = "-k";
 const string identAlfa_componentes = "-a";
 const int metodoKNN = 0;
 const int metodoPSA = 1;
 const char delimitador = ',';
 const int sujetos = 41;
-const int imagenesXsujeto=10;
+const int imagenesXsujeto = 10;
 
 int metodo = -1;
 string pathTrain;
@@ -74,18 +74,33 @@ void agregarAMatrizPCA(uchar* data, int tam, int pos, bool esTest);
  */
 void test1() {
     matrizReal A(2, vectorReal(3, 1));
-    A[1][2] = 9;
-    A[0][0] = 8;
-    matrizReal B = matrizCovarianzas(A);
-    for (unsigned int i = 0; i < B.size(); i++) {
-        imprimir(B[i]);
+    real k = 1;
+    for (unsigned int i = 0; i < A.size(); i++) {
+        for (unsigned int j = 0; j < A[0].size(); j++) {
+            A[i][j] = k++;
+        }
     }
+    cout << "cargó A" << endl;
+    matrizReal B = multiplicarPorTranspuesta(A);
+    cout << "transpuso B" << endl;
+    assert(B.size() == A[0].size());
+    assert(B.size() == B[0].size());
+    for (unsigned int i = 0; i < B.size(); i++) {
+        for (unsigned int j = i; j < B.size(); j++) {
+            assert(B[i][j] == B[j][i]);
+        }
+    }
+
+    //    matrizReal A(2, vectorReal(3, 1));
+    //    A[1][2] = 9;
+    //    A[0][0] = 8;
+    //    matrizReal B = matrizCovarianzas(A);
+    //    for (unsigned int i = 0; i < B.size(); i++) {
+    //        imprimir(B[i]);
+    //    }
 }
 
 int main(int argc, char** argv) {
-    //test1();
-    //return 0;
-
     if (argc < 8) {
         cout << "Error de cantidad de parametros" << endl;
         cout << "modo de uso: ./tp2 -m <metodo> -i <train_set> -q <test_set> -o <resultado> [-k <k vecinos>] [-a <alfa componentes principales>]" << endl;
@@ -135,18 +150,19 @@ int main(int argc, char** argv) {
             }
             break;
         case 1:// PCA + KNN
+            matrizReal cov = matrizCovarianzas(matrizPCATrain);
+            matrizReal Vt = obtenerAlfaVectores(cov, alfa_componentes);
+            matrizReal nuevoTrain = tc(Vt, matrizPCATrain);
+            matrizReal nuevoTest = tc(Vt, matrizPCATest);
             for (unsigned int i = 0; i < matrizKNNTest.size(); i++) {
-                //                matrizReal Vt = obtenerAlfaVectores(matrizCovarianzas(matrizPCATrain),alfa_componentes);
-                //                buscar(k_vecinos,tc(Vt,matrizPCATrain),tc(Vt,matrizPCATest)[i],indices,distancias);
-                //                listaResult.push_back(imagen(pathImagenesTest[i], votar(sujetos,idImagenesTrain,indices,distancias)));
-                //                cout << pathImagenesTest[i] << " " << (int)idImagenesTest[i] << " " << votar(sujetos,idImagenesTrain,indices,distancias) << endl;
+                buscar(k_vecinos, nuevoTrain, nuevoTest[i], indices, distancias);
+                listaResult.push_back(imagen(pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias)));
+                if (debug) cout << pathImagenesTest[i] << " " << (int) idImagenesTest[i] << " " << votar(sujetos, idImagenesTrain, indices, distancias) << endl;
             }
             break;
     }
-
-    if (debug) cout << "listaResult.size(): " << listaResult.size() << endl;;
+    if (debug) cout << "listaResult.size(): " << listaResult.size() << endl;
     escribirCSV(pathResult, listaResult);
-
     cout << "Fin" << endl;
     //guardarImagen();
     return 0;
@@ -185,7 +201,7 @@ void cargarDatosDeEntrada(int argc, char** argv) {
         exit(0);
     } else {
         if (true) {
-        //if (debug) {
+            //if (debug) {
             cout << "metodo: " << metodo << endl;
             cout << "pathTrain: " << pathTrain << endl;
             cout << "pathTest: " << pathTest << endl;
@@ -241,8 +257,8 @@ void escribirCSV(string path, listaImagenes lista) {
     ofstream archivo;
     archivo.open(path.c_str());
 
-    for (imagen img : lista){
-//        cout << get<0>(img) << ", " << get<1>(img) << ", " << endl;
+    for (imagen img : lista) {
+        //        cout << get<0>(img) << ", " << get<1>(img) << ", " << endl;
         archivo << get<0>(img) << ", " << get<1>(img) << ", " << endl;
     }
     archivo.close();
