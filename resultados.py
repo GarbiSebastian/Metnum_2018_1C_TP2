@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 import fileinput
 import numpy
 import Gnuplot
+from functools import reduce
 
 sujetos = 41
 casos = 4
@@ -14,7 +16,7 @@ resultados = [[0 for i in range(casos)] for y in range(sujetos)]
 confusion = [[0 for i in range(sujetos)] for y in range(sujetos)]
 total = 0
 x_sujetos = [0 for i in range(sujetos)]
-positives = [0 for i in range(sujetos)]
+positivos = [0 for i in range(sujetos)]
 #negatives = [0 for i in range(sujetos)]
 
 def datos(i,tipo=TP):
@@ -28,7 +30,7 @@ for line in fileinput.input():
     obtenido = int(item[1])-1
     confusion[real][obtenido]+=1
     x_sujetos[real]+=1
-    positives[obtenido]+=1
+    positivos[obtenido]+=1
     if real==obtenido:
         resultados[real][TP]+=1
     else:
@@ -48,11 +50,11 @@ def gBars(sujetos,xlabel="Sujetos",ylabel="Resultados",title="Resultados"):
     g.xlabel(xlabel)
     g.ylabel(ylabel)
     g("set terminal png size 1000, 500")
-    g("set key below")
+    g("unset key ")
     g("set grid y")
     g("set style data histograms")
     g("set style histogram rowstacked")
-    g("set boxwidth 1")
+    g("set boxwidth 0.8")
     g("set style fill solid 1.0 border -1")
     g("set ytics 10 nomirror")
     #g("set yrange [0:100]")
@@ -70,7 +72,7 @@ def plotRecall(sujetos,cantidades):
     x=range(sujetos)
     y1=[ (float(datos(i,tipo=TP))/cantidades[i])*100 for i in x]
     #y2=[ (float(datos(i,tipo=FN))/cantidades[i])*100 for i in x]
-    d1 = Gnuplot.Data(x,y1,using="2",title="Recall(tp/tp+fn)")
+    d1 = Gnuplot.Data(x,y1,using="2",title="Recall")
     #d2 = Gnuplot.Data(x,y2,using="2",title="Resto(fn/tp+fn)")
     g("set output 'recall.png'")
     #g.plot(d1,d2)
@@ -78,11 +80,11 @@ def plotRecall(sujetos,cantidades):
     del g
 
 def plotPresicion(sujetos,cantidades):
-    g = gBars(sujetos,title="Presicion")
+    g = gBars(sujetos,title="Presición")
     x=range(sujetos)
     y1=[ (float(datos(i,tipo=TP))/cantidades[i])*100 for i in x]
     #y4=[ (float(datos(i,tipo=FN))/x_sujetos[i])*100 for i in x]
-    d1 = Gnuplot.Data(x,y1,using="2",title="Presicion(tp/tp+fp)")
+    d1 = Gnuplot.Data(x,y1,using="2",title="Presicion")
     #d2 = Gnuplot.Data(x,y2,using="2",title="Resto(fn/tp+fn)")
     g("set output 'presicion.png'")
     g.plot(d1)
@@ -91,21 +93,14 @@ def plotPresicion(sujetos,cantidades):
 def mediaArmonica():
     print 1
 
+# presicion: tp/ tp+fp
+
+f=(lambda a, b: a + b)
+presicion=reduce(f,[ (float(datos(i,tipo=TP))/positivos[i])*100 for i in range(sujetos)])/sujetos
+recall=reduce(f,[ (float(datos(i,tipo=TP))/x_sujetos[i])*100 for i in range(sujetos)])/sujetos
+
+#SALIDAS
+plotPresicion(sujetos,cantidades=positivos)
 plotRecall(sujetos,cantidades=x_sujetos)
-plotPresicion(sujetos,cantidades=positives)
-
-"""y1=[ (float(datos(i,tipo=TP))/x_sujetos[i])*100 for i in x]
-y2=[ (float(datos(i,tipo=FP))/(total- x_sujetos[i]))*100 for i in x]
-y3=[ (float(datos(i,tipo=TN))/(total- x_sujetos[i]))*100 for i in x]
-y4=[ (float(datos(i,tipo=FN))/x_sujetos[i])*100 for i in x]"""
-
-"""d1 = Gnuplot.Data(x,y1,using="2",title="Positivos correctos")
-d2 = Gnuplot.Data(x,y2,using="2",title="Positivos incorrectos")
-d3 = Gnuplot.Data(x,y3,using="2",title="Negativos correctos")
-d4 = Gnuplot.Data(x,y4,using="2",title="Negativos incorrectos")"""
-
-#g("set output 'resultados_TP_FN.png'")
-#g.plot(d1,d4)
-#g("set output 'resultados_TN_FP.png'")
-#g.plot(d3,d2)
-#del g
+print "presicion: "+str(presicion);
+print "recall: "+str(recall);

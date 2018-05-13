@@ -3,11 +3,8 @@
 
 using namespace std;
 
-real dameDistancia(vectorReal & u, vectorReal & v) {
-    return norma2(resta(u, v));
-}
-
-real dameDistancia(vectorUchar & u, vectorUchar & v) {
+template<typename T>
+real dameDistancia(vector<T>& u, vector<T> & v) {
     return norma2(resta(u, v));
 }
 
@@ -29,7 +26,7 @@ void insertame(unsigned int indice, real distancia, vectorEntero &indices, vecto
     }
 }
 
-void buscar(int k_vecinos, matrizReal & train, vectorReal & imagen, vectorEntero & indices, vectorReal &distancias) {
+template<typename T> void buscarAux(int k_vecinos, vector< vector<T> > & train, vector<T> & imagen, vectorEntero & indices, vectorReal &distancias) {
     indices = vectorEntero(k_vecinos, -1);
     distancias = vectorReal(k_vecinos, -1);
 
@@ -40,8 +37,16 @@ void buscar(int k_vecinos, matrizReal & train, vectorReal & imagen, vectorEntero
     }
 }
 
+void buscar(int k_vecinos, matrizReal & train, vectorReal & imagen, vectorEntero & indices, vectorReal &distancias) {
+    buscarAux(k_vecinos,train,imagen,indices,distancias);
+}
+
+void buscar(int k_vecinos, matrizUchar & train, vectorUchar & imagen, vectorEntero & indices, vectorReal &distancias) {
+    buscarAux(k_vecinos,train,imagen,indices,distancias);
+}
+
 int votar(unsigned int cant_categorias, vectorEntero & labels, vectorEntero & indices, vectorReal &distancias) {
-    vectorUchar bucket(cant_categorias, 0);
+    vectorEntero bucket(cant_categorias, 0);
     for (unsigned int i = 0; i < indices.size(); i++) {
         bucket[ labels[indices[i]]-1 ]++;
     }
@@ -56,13 +61,3 @@ int votar(unsigned int cant_categorias, vectorEntero & labels, vectorEntero & in
     return j+1;
 }
 
-void buscar(int k_vecinos, matrizUchar & train, vectorUchar & imagen, vectorEntero & indices, vectorReal &distancias) {
-    indices = vectorEntero(k_vecinos, -1);
-    distancias = vectorReal(k_vecinos, -1);
-
-    //busco vecinos mas cercanos
-    for (unsigned int i = 0; i < train.size(); i++) {
-        real distancia = dameDistancia(imagen, train[i]);
-        insertame(i, distancia, indices, distancias);
-    }
-}

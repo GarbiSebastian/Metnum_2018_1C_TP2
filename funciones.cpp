@@ -55,18 +55,19 @@ void normalizar(vectorReal &v) {
     normalizar_original(v);
 }
 
-vectorReal resta(vectorReal &x, vectorReal &y) {
+template<typename T> vectorReal restaAux(vector<T>& x,vector<T>& y){
     assert(x.size()==y.size());
     vectorReal tmp(x.size(), 0.0);
     for (unsigned int i = 0; i < x.size(); i++) tmp[i] = (x[i] - y[i]);
     return tmp;
 }
 
+vectorReal resta(vectorReal &x, vectorReal &y) {
+    return restaAux(x,y);
+}
+
 vectorReal resta(vectorUchar &x, vectorUchar &y) {
-    assert(x.size()==y.size());
-    vectorReal tmp(x.size(), 0);
-    for (unsigned int i = 0; i < x.size(); i++) tmp[i] = (x[i] - y[i]);
-    return tmp;
+    return restaAux(x,y);
 }
 
 double productoInterno(vectorReal &u, vectorReal &v) {

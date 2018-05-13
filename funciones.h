@@ -5,12 +5,7 @@
 
 using namespace std;
 
-//double normaInfinito(vectorReal &v);
-//double norma2_original(vectorReal v);
-//double norma2_infinito(vectorReal v);
 double norma2(vectorReal v);
-//void normalizar_original(vectorReal &v);
-//void normalizar_infinito(vectorReal &v);
 void normalizar(vectorReal &v);
 vectorReal resta(vectorReal &x, vectorReal &y);
 vectorReal resta(vectorUchar &x, vectorUchar &y);
