@@ -2,6 +2,8 @@
 #include <cassert>
 #include <assert.h>
 #include "funciones.h"
+#include <iostream>
+#include "imprimir.h"
 
 using namespace std;
 
@@ -70,7 +72,7 @@ vectorReal resta(vectorUchar &x, vectorUchar &y) {
     return restaAux(x, y);
 }
 
-double productoInterno(vectorReal &u, vectorReal &v) {
+double productoInterno(const vectorReal &u, const vectorReal &v) {
     assert(u.size() == v.size());
     double sum = 0;
     for (unsigned int i = 0; i < u.size(); i++) {
@@ -99,6 +101,26 @@ matrizReal centrarRespectoALaMedia(matrizReal &A) {
     return B;
 }
 
+void centrarRespectoALaMedia(const matrizReal &A,matrizReal& B) {
+    //A es de m*n
+    unsigned int m = A.size();
+    assert(m>0);
+    unsigned int n = A[0].size();
+    assert(m==B.size()&&n==B[0].size());
+    double raiz_m_menos_uno = sqrt(m - 1);
+    vectorReal media(n, 0);
+    for (unsigned int i = 0; i < m; i++) {
+        for (unsigned int j = 0; j < n; j++) {
+            media[j] += A[i][j] / m;
+        }
+    }
+    for (unsigned int i = 0; i < m; i++) {
+        for (unsigned int j = 0; j < n; j++) {
+            B[i][j] = (A[i][j] - media[j]) / raiz_m_menos_uno;
+        }
+    }
+}
+
 vectorReal A_por_v(matrizReal& A, vectorReal& v) {
     unsigned int m = A.size();
     unsigned int n = A[0].size();
@@ -108,6 +130,16 @@ vectorReal A_por_v(matrizReal& A, vectorReal& v) {
         resultado[i] = productoInterno(A[i], v);
     }
     return resultado;
+}
+
+void A_por_v(const matrizReal& A, const vectorReal& v, vectorReal& resultado) {
+    unsigned int m = A.size();
+    unsigned int n = A[0].size();
+    assert(n == v.size());
+    assert(m == resultado.size());
+    for (unsigned int i = 0; i < m; i++) {
+        resultado[i] = productoInterno(A[i], v);
+    }
 }
 
 void transponer(const matrizReal&A, matrizReal&At) {
@@ -139,6 +171,25 @@ matrizReal multiplicarPorTranspuesta(matrizReal &A) {
     return res;
 }
 
+void multiplicarPorTranspuesta(const matrizReal &A,matrizReal& res) {
+    unsigned int m = A.size();
+    assert(m>0);
+    unsigned int n = A[0].size();
+    assert(n==res.size()&& n==res[0].size());
+    matrizReal At(n, vectorReal(m, 0));
+    transponer(A, At);
+//    matrizReal res = matrizReal(n, vectorReal(n, 0));
+    for (unsigned int i = 0; i < n; i++) {
+        for (unsigned int j = i; j < n; j++) {
+            for (unsigned int k = 0; k < m; k++) {
+                res[i][j] += At[i][k] * At[j][k];
+            }
+            res[j][i] = res[i][j];
+        }
+    }
+//    return res;
+}
+
 matrizReal tc(matrizReal& Vt, matrizReal& A){// Aplica la transformación caracteristica a cada FILA de A
     unsigned int m = A.size(); // cant imágenes
     unsigned int n = Vt.size(); // alfa 
@@ -149,4 +200,18 @@ matrizReal tc(matrizReal& Vt, matrizReal& A){// Aplica la transformación caracte
         res.push_back(A_por_v(Vt,A[i]));
     }
     return res;
+}
+
+void tc(const matrizReal& Vt, const matrizReal& A, matrizReal& res){// Aplica la transformación caracteristica a cada FILA de A
+    unsigned int m = A.size(); // cant imágenes
+    unsigned int n = Vt.size(); // alfa 
+    unsigned int p = A[0].size(); // cant pixeles
+    assert(p==Vt[0].size());// cant pixeles
+
+    assert(m==res.size()&&n==res[0].size());
+    for (unsigned int i = 0; i < m; i++) {
+        for (unsigned int j = 0; j < n; j++) {
+            res[i][j] = productoInterno(Vt[j], A[i]);
+        }
+    }
 }

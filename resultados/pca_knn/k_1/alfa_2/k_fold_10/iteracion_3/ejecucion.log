@@ -4,4 +4,4 @@ pathTest: folds/k_fold_10/iteracion_3/test.csv
 pathResult: resultados/pca_knn/k_1/alfa_2/k_fold_10/iteracion_3/clasif.csv
 k_vecinos: 1
 alfa_componentes: 2
-Fin
+41Fin

@@ -27,7 +27,7 @@ void imprimir(vector<T> &v,ostream &out, bool transpuesto){
 		}
 	}else{
 //		out << (double)v[0];
-		out << v[0];
+		out << (int)v[0];
 		for(unsigned int i = 1; i < v.size();i++){
 //			out << " " << (double)v[i]; 
 			out << " " << v[i];

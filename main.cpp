@@ -100,7 +100,38 @@ void test1() {
     //    }
 }
 
+void test2() {
+    unsigned int m = 3, n = 4, k = 1;
+    matrizReal A(m, vectorReal(n, 0));
+    for (unsigned int i = 0; i < m; i++) {
+        for (unsigned int j = 0; j < n; j++) {
+            A[i][j] = k++;
+        }
+    }
+    matrizReal cov(n, vectorReal(n, 0));
+    matrizReal B(m, vectorReal(n, 0));
+    centrarRespectoALaMedia(A, B);
+
+    //    matrizCovarianzas(A,cov);
+
+    for (unsigned int i = 0; i < m; i++) {
+        for (unsigned int j = 0; j < n; j++) {
+            cout << A[i][j] << ", ";
+        }
+        cout << endl;
+    }
+
+    for (unsigned int i = 0; i < m; i++) {
+        for (unsigned int j = 0; j < n; j++) {
+            cout << B[i][j] << ", ";
+        }
+        cout << endl;
+    }
+    exit(0);
+}
+
 int main(int argc, char** argv) {
+    //    test2();
     if (argc < 8) {
         cout << "Error de cantidad de parametros" << endl;
         cout << "modo de uso: ./tp2 -m <metodo> -i <train_set> -q <test_set> -o <resultado> [-k <k vecinos>] [-a <alfa componentes principales>]" << endl;
@@ -141,23 +172,29 @@ int main(int argc, char** argv) {
     }
     vectorReal distancias;
     vectorEntero indices;
+
     switch (metodo) {
         case 0:// KNN
             for (unsigned int i = 0; i < matrizKNNTest.size(); i++) {
                 buscar(k_vecinos, matrizKNNTrain, matrizKNNTest[i], indices, distancias);
                 listaResult.push_back(imagen(pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias)));
-                if (debug) cout << pathImagenesTest[i] << " " << (int) idImagenesTest[i] << " " << votar(sujetos, idImagenesTrain, indices, distancias) << endl;
             }
             break;
         case 1:// PCA + KNN
-            matrizReal cov = matrizCovarianzas(matrizPCATrain);
-            matrizReal Vt = obtenerAlfaVectores(cov, alfa_componentes);
-            matrizReal nuevoTrain = tc(Vt, matrizPCATrain);
-            matrizReal nuevoTest = tc(Vt, matrizPCATest);
-            for (unsigned int i = 0; i < matrizKNNTest.size(); i++) {
+            unsigned int m = matrizPCATrain.size();
+            unsigned int n = matrizPCATrain[0].size();
+            unsigned int t = matrizPCATest.size();
+            matrizReal cov(n, vectorReal(n, 0));
+            matrizCovarianzas(matrizPCATrain, cov);
+            matrizReal Vt;
+            obtenerAlfaVectores(cov, alfa_componentes, Vt);
+            matrizReal nuevoTrain(m, vectorReal(alfa_componentes, 0));
+            matrizReal nuevoTest(t, vectorReal(alfa_componentes, 0));
+            tc(Vt, matrizPCATrain, nuevoTrain);
+            tc(Vt, matrizPCATest, nuevoTest);
+            for (unsigned int i = 0; i < nuevoTest.size(); i++) {
                 buscar(k_vecinos, nuevoTrain, nuevoTest[i], indices, distancias);
                 listaResult.push_back(imagen(pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias)));
-                if (debug) cout << pathImagenesTest[i] << " " << (int) idImagenesTest[i] << " " << votar(sujetos, idImagenesTrain, indices, distancias) << endl;
             }
             break;
     }
