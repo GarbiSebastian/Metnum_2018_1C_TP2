@@ -15,58 +15,66 @@
 
 #include "pca.h"
 
-void A_menos_vvt(matrizReal &A, vectorReal &v) {
-    unsigned int m = A.size();
-    assert( m > 0 && m == v.size());
-    assert( m == A[0].size() );
-    for (unsigned int i = 0; i < m; i++) {
-        for (unsigned int j = 0; j < m; j++) {
-            A[i][j] = A[i][j] - v[i] * v[j];
-        }
-    }
+void A_menos_vvt(matrizReal &A, vectorReal &v, double a) {
+	unsigned int m = A.size();
+	assert(m > 0 && m == v.size());
+	assert(m == A[0].size());
+	for (unsigned int i = 0; i < m; i++) {
+		for (unsigned int j = 0; j < m; j++) {
+			A[i][j] = A[i][j] - a * (v[i] * v[j]);
+		}
+	}
 }
 
 matrizReal matrizCovarianzas(matrizReal &imagenes) {
-    assert(imagenes.size() > 0);
-    matrizReal B = centrarRespectoALaMedia(imagenes);
-    return multiplicarPorTranspuesta(B);
+	assert(imagenes.size() > 0);
+	matrizReal B = centrarRespectoALaMedia(imagenes);
+	return multiplicarPorTranspuesta(B);
 }
 
 void matrizCovarianzas(const matrizReal &imagenes, matrizReal& cov) {
-    unsigned int m = imagenes.size();
-    assert(m>0);
-    unsigned int n = imagenes[0].size();
-    assert(n==cov.size()&&n==cov[0].size());
-    matrizReal B(m,vectorReal(n,0));
-    centrarRespectoALaMedia(imagenes,B);
-    multiplicarPorTranspuesta(B,cov);
+	unsigned int m = imagenes.size();
+	assert(m > 0);
+	unsigned int n = imagenes[0].size();
+	assert(n == cov.size() && n == cov[0].size());
+	matrizReal B(m, vectorReal(n, 0));
+	centrarRespectoALaMedia(imagenes, B);
+	multiplicarPorTranspuesta(B, cov);
 }
 
 matrizReal obtenerAlfaVectores(matrizReal &A, unsigned int alfa) {
-    matrizReal res;
-    vectorReal v;
-    assert(alfa <= A.size());
-    matrizReal B = A;
-    int iteraciones = 1000;
-    double epsilon = 1 / pow(10, 12);
-    for (unsigned int i = 0; i < alfa; i++) {
-        metodoPotencia(B, v, iteraciones, epsilon);
-        res.push_back(v);
-        A_menos_vvt(B, v);
-    }
-    return res;
+	matrizReal res;
+	vectorReal v;
+	assert(alfa <= A.size());
+	matrizReal B = A;
+	double autovalor;
+	int iteraciones = 1000;
+	double epsilon = 1 / pow(10, 12);
+	for (unsigned int i = 0; i < alfa; i++) {
+		//		cout << "*************" << endl;
+		//		for (unsigned int i = 0; i < A.size(); i++) {
+		//			imprimir(B[i], cout);
+		//		}
+		//		cout << "-------------" << endl;
+
+		autovalor = metodoPotencia(B, v, iteraciones, epsilon);
+		res.push_back(v);
+		A_menos_vvt(B, v, autovalor);
+	}
+	return res;
 }
 
-void obtenerAlfaVectores(matrizReal &A, unsigned int alfa,matrizReal& res) {
-    assert(alfa <= A.size());
-    vectorReal v;
-    int iteraciones = 1000;
-    double epsilon = 1 / pow(10, 12);
-    for (unsigned int i = 0; i < alfa; i++) {
-        metodoPotencia(A, v, iteraciones, epsilon);
-        res.push_back(v);
-        A_menos_vvt(A, v);
-    }
+void obtenerAlfaVectores(matrizReal &A, unsigned int alfa, matrizReal& res) {
+	assert(alfa <= A.size());
+	vectorReal v;
+	int iteraciones = 1000;
+	double epsilon = 1 / pow(10, 12);
+	double autovalor;
+	for (unsigned int i = 0; i < alfa; i++) {
+		autovalor = metodoPotencia(A, v, iteraciones, epsilon);
+		res.push_back(v);
+		A_menos_vvt(A, v, autovalor);
+	}
 }
 
 
