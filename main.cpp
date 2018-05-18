@@ -236,28 +236,28 @@ int main(int argc, char** argv) {
             matrizReal cov(n, vectorReal(n, 0));
             matrizCovarianzas(matrizPCATrain, cov);
 
-            //            unsigned int alfas_n = 4, vecinos_n = 5;
-            //            int alfas[alfas_n] = {1, 2, 5, 7};
-            //            int vecinos[vecinos_n] = {1, 2, 3, 5, 7};
-            //            for (unsigned int alfa_i = 0; alfa_i < alfas_n; alfa_i++) {
-            //                alfa_componentes = alfas[alfa_i];
-            //                cout << "alfa: " << alfa_componentes << endl;
+                        unsigned int alfas_n = 6, vecinos_n = 5;
+                        int alfas[alfas_n] = {10, 30, 50, 100, 300, 500};
+                        int vecinos[vecinos_n] = {1, 2, 3, 5, 7};
+                        for (unsigned int alfa_i = 0; alfa_i < alfas_n; alfa_i++) {
+                            alfa_componentes = alfas[alfa_i];
+                            cout << "alfa: " << alfa_componentes << endl;
             matrizReal Vt;
             obtenerAlfaVectores(cov, alfa_componentes, Vt);
             matrizReal nuevoTrain(m, vectorReal(alfa_componentes, 0));
             matrizReal nuevoTest(t, vectorReal(alfa_componentes, 0));
             tc(Vt, matrizPCATrain, nuevoTrain);
             tc(Vt, matrizPCATest, nuevoTest);
-            //                for (unsigned int vecino_i = 0; vecino_i < vecinos_n; vecino_i++) {
-            //                    k_vecinos = vecinos[vecino_i];
-            //                    cout << "k: " << k_vecinos << endl;
+                            for (unsigned int vecino_i = 0; vecino_i < vecinos_n; vecino_i++) {
+                                k_vecinos = vecinos[vecino_i];
+                                cout << "k: " << k_vecinos << endl;
             for (unsigned int i = 0; i < nuevoTest.size(); i++) {
                 buscar(k_vecinos, nuevoTrain, nuevoTest[i], indices, distancias);
                 listaResult.push_back(imagen(to_string(k_vecinos) + " " + to_string(alfa_componentes) + " " + pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias)));
                 //                        listaResult.push_back(imagen(pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias)));
             }
-            //                }
-            //            }
+                            }
+                        }
             break;
         }
         case metodoKNN_uchar:
