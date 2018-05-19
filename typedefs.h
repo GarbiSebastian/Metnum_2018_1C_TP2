@@ -1,3 +1,6 @@
+#ifndef TYPEDEFS_H
+#define TYPEDEFS_H
+
 #include <vector>
 #include <tuple>
 #include <list>
@@ -17,3 +20,5 @@ typedef vector< vectorReal > matrizReal;
 
 typedef tuple< string, int> imagen;
 typedef list< imagen > listaImagenes;
+
+#endif // TYPEDEFS_H

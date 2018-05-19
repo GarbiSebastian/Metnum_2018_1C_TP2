@@ -60,7 +60,7 @@ void normalizar(vectorReal &v) {
 template<typename T> vectorReal restaAux(vector<T>& x, vector<T>& y) {
     assert(x.size() == y.size());
     vectorReal tmp(x.size(), 0.0);
-    for (unsigned int i = 0; i < x.size(); i++) tmp[i] = (x[i] - y[i]);
+    for (unsigned int i = 0; i < x.size(); i++) tmp[i] = ((real)x[i] - (real)y[i]);
     return tmp;
 }
 

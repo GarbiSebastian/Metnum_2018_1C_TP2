@@ -1,5 +1,5 @@
-#ifndef imprimir_h
-#define imprimir_h
+#ifndef IMPRIMIR_H
+#define IMPRIMIR_H
 #include "typedefs.h"
 #include <vector>
 #include <iostream>
@@ -82,4 +82,4 @@ template<typename T>
 void imprimir(vector<T> &v) {
 	imprimir(v, cout);
 }
-#endif
+#endif /* IMPRIMIR_H */

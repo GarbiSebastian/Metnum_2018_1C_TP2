@@ -1,7 +1,0 @@
-metodo: 1
-pathTrain: folds/k_fold_10/iteracion_7/train.csv
-pathTest: folds/k_fold_10/iteracion_7/test.csv
-pathResult: resultados/pca_knn/k_3/alfa_30/k_fold_10/iteracion_7/clasif.csv
-k_vecinos: 3
-alfa_componentes: 30
-Fin
