@@ -1,6 +1,6 @@
 #!/bin/bash
 metodo=$1
-make tp;
+#make tp;
 dir_resultados=resultados;
 dir_folds=folds;
 for k in 1 2 3 5 7; do

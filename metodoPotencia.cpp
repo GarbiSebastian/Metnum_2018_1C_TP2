@@ -6,6 +6,7 @@
 #include <iomanip>
 
 double metodoPotencia(matrizReal &B, vectorReal &v, int niter, double epsilon) {
+    cout << "epsilon: " << epsilon << endl;
 	v.clear();
 	vectorReal tmp(B.size(), 0);
 	//MetodoPotencia(B,x 0 ,niter)
@@ -19,12 +20,13 @@ double metodoPotencia(matrizReal &B, vectorReal &v, int niter, double epsilon) {
 		normalizar(tmp);
 		//assert(abs(norma2(tmp)-1) <= 0.1e-10);
 		if (norma2(resta(v, tmp)) <= epsilon) {
-			//cout << "salio con " << i << " iteraciones" << endl;
+			cout << "salio con " << i << " iteraciones ";
 			break;
 		} //si no cambio al menos epsilon en norma 2
 		//v <- Bv/||Bv||
 		v = tmp;
 	}
+    cout << " saliod metodoPot" << endl;
 	//lambda <- v'*Bv/(v'*v) //v siempre tiene norma uno entonces norma Cuadrada de v es 1
 
 	//assert(norma2(v)-1 <= epsilon);

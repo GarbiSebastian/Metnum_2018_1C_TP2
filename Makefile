@@ -64,7 +64,7 @@ build: .build-post
 clean: .clean-post
 
 .clean-pre:
-	rm -f $(TP)
+#	rm -f $(TP)
 
 # Add your pre 'clean' code here...
 
@@ -123,6 +123,9 @@ help: .help-post
 
 tp: all
 	cp $(CND_ARTIFACT_PATH_Release) $(TP)
+
+cleantp: clean
+	rm -f $(TP)	
 
 # include project implementation makefile
 include nbproject/Makefile-impl.mk

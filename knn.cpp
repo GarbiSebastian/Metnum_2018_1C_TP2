@@ -50,6 +50,10 @@ int votar(unsigned int cant_categorias, vectorEntero & labels, vectorEntero & in
     for (unsigned int i = 0; i < indices.size(); i++) {
         bucket[ labels[indices[i]]-1 ]++;
     }
+//    vectorReal bucket(cant_categorias, 0);
+//    for (unsigned int i = 0; i < indices.size(); i++) {
+//        bucket[ labels[indices[i]]-1 ]+=1/distancias[i];
+//    }
     unsigned int j = 0;
     int max = 0;
     for (unsigned int i = 0; i < cant_categorias; i++) {

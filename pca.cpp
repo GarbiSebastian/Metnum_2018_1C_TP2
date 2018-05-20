@@ -14,6 +14,7 @@
 #include <cassert>
 
 #include "pca.h"
+#include "constantes.h"
 
 void A_menos_vvt(matrizReal &A, vectorReal &v, double a) {
 	unsigned int m = A.size();
@@ -49,7 +50,7 @@ matrizReal obtenerAlfaVectores(matrizReal &A, unsigned int alfa) {
 	matrizReal B = A;
 	double autovalor;
 	int iteraciones = 1000;
-	double epsilon = 1 / pow(10, 12);
+	//double epsilon = 1 / pow(10, 12);
 	for (unsigned int i = 0; i < alfa; i++) {
 		//		cout << "*************" << endl;
 		//		for (unsigned int i = 0; i < A.size(); i++) {
@@ -68,7 +69,7 @@ void obtenerAlfaVectores(matrizReal &A, unsigned int alfa, matrizReal& res) {
 	assert(alfa <= A.size());
 	vectorReal v;
 	int iteraciones = 1000;
-	double epsilon = 1 / pow(10, 12);
+	//double epsilon = 1 / pow(10, 12);
 	double autovalor;
 	for (unsigned int i = 0; i < alfa; i++) {
 		autovalor = metodoPotencia(A, v, iteraciones, epsilon);
