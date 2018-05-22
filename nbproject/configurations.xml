@@ -16,8 +16,6 @@
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
-      <itemPath>armarBases.sh</itemPath>
-      <itemPath>folding.sh</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -59,11 +57,7 @@
           <warningLevel>2</warningLevel>
         </ccTool>
       </compileType>
-      <item path="armarBases.sh" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="constantes.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="folding.sh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="funciones.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -113,11 +107,7 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="armarBases.sh" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="constantes.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="folding.sh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="funciones.cpp" ex="false" tool="1" flavor2="0">
       </item>
