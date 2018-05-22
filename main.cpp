@@ -173,11 +173,9 @@ void agregarAMatrizPCA(uchar* data, int tam, int pos, bool esTest);
 //}
 
 int main(int argc, char** argv) {
-    //  test84();
-    //  test2();
-    //  test1();
-    //  exit(0);
+    
     if (argc < 8) {
+        cout << "v 2" << endl; 
         cout << "Error de cantidad de parametros" << endl;
         cout << "modo de uso: ./tp2 -m <metodo> -i <train_set> -q <test_set> -o <resultado> [-k <k vecinos>] [-a <alfa componentes principales>]" << endl;
         cout << "Metodo 0: KNN (DOUBLES)" << endl << "Metodo 1: PCA + KNN" << endl << "Metodo 2: KNN (UNSIGNED CHAR)" << endl;
@@ -260,8 +258,8 @@ int main(int argc, char** argv) {
             /*borrar*/        cout << "k: " << k_vecinos << endl;//borrar
                     for (unsigned int i = 0; i < nuevoTest.size(); i++) {
                         buscar(k_vecinos, nuevoTrain, nuevoTest[i], indices, distancias);
-                        listaResult.push_back(imagen(to_string(k_vecinos) + " " + to_string(alfa_componentes) + " " + pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias)));//borrar
-                        //                        listaResult.push_back(imagen(pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias)));//descomentar
+            /*borrar*/            listaResult.push_back(imagen(to_string(k_vecinos) + " " + to_string(alfa_componentes) + " " + pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias)));//borrar
+            /*DESCOMENTAR*/            //                        listaResult.push_back(imagen(pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias)));//descomentar
                     }
             /*borrar*/    }//borrar
             /*borrar*/}//borrar

@@ -87,6 +87,6 @@ nbactions.xml
 
 tp/archivos_tp2/
 tp/archivos_tp2.zip
-ImagenesCarasRed/
-ImagenesCaras/
+#ImagenesCarasRed/
+#ImagenesCaras/
 tp2
