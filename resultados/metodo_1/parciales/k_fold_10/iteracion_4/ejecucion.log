@@ -1,0 +1,116 @@
+metodo: 1
+pathTrain: folds/k_fold_10/iteracion_4/train.csv
+pathTest: folds/k_fold_10/iteracion_4/test.csv
+pathResult: resultados/metodo_1/parciales/k_fold_10/iteracion_4/clasif.csv
+k_vecinos: 1
+alfa_componentes: 1
+epsilon: 1e-09
+salio con 59 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 29 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 93 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 175 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 57 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 61 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 199 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 110 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 255 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 111 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 217 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 92 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 238 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 242 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 348 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 299 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 335 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 189 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 427 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 197 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 753 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+ saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 164 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 618 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 275 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 420 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 492 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+ saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 281 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 289 iteraciones  saliod metodoPot
+alfa: 1
+k: 1
+k: 2
+k: 3
+k: 5
+k: 7
+alfa: 2
+k: 1
+k: 2
+k: 3
+k: 5
+k: 7
+alfa: 3
+k: 1
+k: 2
+k: 3
+k: 5
+k: 7
+alfa: 5
+k: 1
+k: 2
+k: 3
+k: 5
+k: 7
+alfa: 7
+k: 1
+k: 2
+k: 3
+k: 5
+k: 7
+alfa: 10
+k: 1
+k: 2
+k: 3
+k: 5
+k: 7
+alfa: 20
+k: 1
+k: 2
+k: 3
+k: 5
+k: 7
+alfa: 30
+k: 1
+k: 2
+k: 3
+k: 5
+k: 7
+tiempo: 1382
+Fin

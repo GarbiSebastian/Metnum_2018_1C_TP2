@@ -37,3 +37,80 @@ salio con 263 iteraciones  saliod metodoPot
 epsilon: 0.00000000100000000
 salio con 269 iteraciones  saliod metodoPot
 epsilon: 0.00000000100000000
+ saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 149 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 276 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+ saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 222 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 442 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 207 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 341 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 426 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 613 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 484 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 572 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 563 iteraciones  saliod metodoPot
+epsilon: 0.00000000100000000
+salio con 663 iteraciones  saliod metodoPot
+alfa: 1
+k: 1
+k: 2
+k: 3
+k: 5
+k: 7
+alfa: 2
+k: 1
+k: 2
+k: 3
+k: 5
+k: 7
+alfa: 3
+k: 1
+k: 2
+k: 3
+k: 5
+k: 7
+alfa: 5
+k: 1
+k: 2
+k: 3
+k: 5
+k: 7
+alfa: 7
+k: 1
+k: 2
+k: 3
+k: 5
+k: 7
+alfa: 10
+k: 1
+k: 2
+k: 3
+k: 5
+k: 7
+alfa: 20
+k: 1
+k: 2
+k: 3
+k: 5
+k: 7
+alfa: 30
+k: 1
+k: 2
+k: 3
+k: 5
+k: 7
+tiempo: 1515
+Fin
