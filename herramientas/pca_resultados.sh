@@ -7,6 +7,7 @@ for k in 1 2 3 5 7; do
       find $dir | grep clasif | xargs cat | sed -r -e 's/.*s([0-9]+).* ([0-9]+),/\1 \2/' | python herramientas/resultados.py > resultados.csv;
       mv presicion.png $dir/;
       mv recall.png $dir/;
+      mv accuracy.png $dir/;
       mv resultados.csv $dir/;
     done;
   done;
