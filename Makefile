@@ -56,7 +56,7 @@ build: .build-post
 .build-pre:
 # Add your pre 'build' code here...
 
-.build-post: .build-impl
+.build-post: .build-impl .tp
 # Add your post 'build' code here...
 
 
@@ -68,7 +68,7 @@ clean: .clean-post
 
 # Add your pre 'clean' code here...
 
-.clean-post: .clean-impl
+.clean-post: .clean-impl .cleantp
 # Add your post 'clean' code here...
 
 
@@ -83,7 +83,7 @@ clobber: .clobber-post
 
 
 # all
-all: .all-post
+all: .all-post .tp
 
 .all-pre:
 # Add your pre 'all' code here...
@@ -121,11 +121,11 @@ help: .help-post
 .help-post: .help-impl
 # Add your post 'help' code here...
 
-tp: all
+.tp:
 	cp $(CND_ARTIFACT_PATH_Release) $(TP)
 
-cleantp: clean
-	rm -f $(TP)	
+.cleantp:
+	rm -f $(TP)
 
 # include project implementation makefile
 include nbproject/Makefile-impl.mk

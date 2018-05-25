@@ -9,30 +9,23 @@ double metodoPotencia(matrizReal &B, vectorReal &v, int niter, double epsilon) {
     cout << "epsilon: " << epsilon << endl;
 	v.clear();
 	vectorReal tmp(B.size(), 0);
-	//MetodoPotencia(B,x 0 ,niter)
 
 	//v <- x0
 	v = randVector(B.size());
-	cout << fixed << setprecision(17);
 	//Para i = 1, . . . , niter
 	for (int i = 0; i < niter; i++) {
 		tmp = A_por_v(B, v);
 		normalizar(tmp);
-		//assert(abs(norma2(tmp)-1) <= 0.1e-10);
 		if (norma2(resta(v, tmp)) <= epsilon) {
-			cout << "salio con " << i << " iteraciones ";
 			break;
 		} //si no cambio al menos epsilon en norma 2
 		//v <- Bv/||Bv||
 		v = tmp;
 	}
-    cout << " saliod metodoPot" << endl;
 	//lambda <- v'*Bv/(v'*v) //v siempre tiene norma uno entonces norma Cuadrada de v es 1
 
-	//assert(norma2(v)-1 <= epsilon);
 	double normaCuadrada = pow(norma2(v), 2);
 	vectorReal Bv = A_por_v(B, v);
-	//return productoInterno(v,Bv);//producto interno entre v y Bv
 	//Devolver lambda v .
 	return productoInterno(v, Bv) / normaCuadrada;
 }
