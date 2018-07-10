@@ -10,15 +10,15 @@
             <sourceEncoding>windows-1250</sourceEncoding>
             <make-dep-projects/>
             <sourceRootList>
-                <sourceRootElem>ImagenesCaras</sourceRootElem>
+                <sourceRootElem>.</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>
-                    <name>Debug</name>
+                    <name>Release</name>
                     <type>1</type>
                 </confElem>
                 <confElem>
-                    <name>Release</name>
+                    <name>Debug</name>
                     <type>1</type>
                 </confElem>
             </confList>

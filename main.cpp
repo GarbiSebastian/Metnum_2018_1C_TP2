@@ -23,6 +23,7 @@ const string identAlfa_componentes = "-a";
 const int metodoKNN = 0;
 const int metodoPCA = 1;
 const int metodoKNN_uchar = 2;
+const int metodoPCA_inverso = 3;
 const char delimitador = ',';
 const int sujetos = 41;
 const int imagenesXsujeto = 10;
@@ -173,12 +174,16 @@ void agregarAMatrizPCA(uchar* data, int tam, int pos, bool esTest);
 //}
 
 int main(int argc, char** argv) {
-    
+
     if (argc < 8) {
-        cout << "v 2" << endl; 
+        cout << "v 2" << endl;
         cout << "Error de cantidad de parametros" << endl;
         cout << "modo de uso: ./tp2 -m <metodo> -i <train_set> -q <test_set> -o <resultado> [-k <k vecinos>] [-a <alfa componentes principales>]" << endl;
-        cout << "Metodo 0: KNN (DOUBLES)" << endl << "Metodo 1: PCA + KNN" << endl << "Metodo 2: KNN (UNSIGNED CHAR)" << endl;
+        cout
+                << "Metodo 0: KNN (DOUBLES)" << endl
+                << "Metodo 1: PCA + KNN" << endl
+                << "Metodo 2: KNN (UNSIGNED CHAR)" << endl
+                << "Metodo 3: PCA(X*Xt) + KNN" << endl;
         exit(0);
     }
 
@@ -236,33 +241,40 @@ int main(int argc, char** argv) {
             calcularMedias(matrizPCATrain, media);
             matrizCovarianzas(matrizPCATrain, cov, media); //centra la matriz train y calcula cov
             centrarRespectoA(matrizPCATest, media, m); // centro la matriz test 
-            
-            /*borrar*/unsigned int alfas_n = 8, vecinos_n = 5;//borrar
-            /*borrar*/int alfas[alfas_n] = {1, 2, 3, 5, 7, 10, 20, 30};//borrar
-            /*borrar*/alfa_componentes = alfas[alfas_n - 1];//borrar
+
+//            /*borrar*/unsigned int alfas_n = 8, vecinos_n = 5; //borrar
+//            /*borrar*/int alfas[alfas_n] = {1, 2, 3, 5, 7, 10, 20, 30}; //borrar
+//            /*borrar*/alfa_componentes = alfas[alfas_n - 1]; //borrar
+
+            cout << "X m " << matrizPCATrain.size() << " X n " << matrizPCATrain[0].size() << endl;
             
             matrizReal Vt;
             obtenerAlfaVectores(cov, alfa_componentes, Vt);
+            
+            cout << "Vt m " << Vt.size() << " Vt n " << Vt[0].size() << endl;
+            exit(0);
 
-            /*borrar*/int vecinos[vecinos_n] = {1, 2, 3, 5, 7};//borrar
-            /*borrar*/for (unsigned int alfa_i = 0; alfa_i < alfas_n; alfa_i++) {//borrar
-            /*borrar*/    alfa_componentes = alfas[alfa_i];//borrar
-            /*borrar*/    cout << "alfa: " << alfa_componentes << endl;//borrar
+//            /*borrar*/int vecinos[vecinos_n] = {1, 2, 3, 5, 7}; //borrar
+//            /*borrar*/for (unsigned int alfa_i = 0; alfa_i < alfas_n; alfa_i++) {//borrar
+//                /*borrar*/ alfa_componentes = alfas[alfa_i]; //borrar
+//                /*borrar*/ cout << "alfa: " << alfa_componentes << endl; //borrar
 
                 matrizReal nuevoTrain(m, vectorReal(alfa_componentes, 0));
                 matrizReal nuevoTest(t, vectorReal(alfa_componentes, 0));
                 tc(Vt, matrizPCATrain, nuevoTrain);
                 tc(Vt, matrizPCATest, nuevoTest);
-            /*borrar*/    for (unsigned int vecino_i = 0; vecino_i < vecinos_n; vecino_i++) {//borrar
-            /*borrar*/        k_vecinos = vecinos[vecino_i];//borrar
-            /*borrar*/        cout << "k: " << k_vecinos << endl;//borrar
+//                /*borrar*/ for (unsigned int vecino_i = 0; vecino_i < vecinos_n; vecino_i++) {//borrar
+//                    /*borrar*/ k_vecinos = vecinos[vecino_i]; //borrar
+//                    /*borrar*/ cout << "k: " << k_vecinos << endl; //borrar
                     for (unsigned int i = 0; i < nuevoTest.size(); i++) {
                         buscar(k_vecinos, nuevoTrain, nuevoTest[i], indices, distancias);
-            /*borrar*/            listaResult.push_back(imagen(to_string(k_vecinos) + " " + to_string(alfa_componentes) + " " + pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias)));//borrar
-            /*DESCOMENTAR*/            //                        listaResult.push_back(imagen(pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias)));//descomentar
+//                        /*borrar*/ listaResult.push_back(imagen(to_string(k_vecinos) + " " + to_string(alfa_componentes) + " " + pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias))); //borrar
+                        /*DESCOMENTAR*/ //                        listaResult.push_back(imagen(pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias)));//descomentar
+                        listaResult.push_back(imagen(pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias)));//descomentar
                     }
-            /*borrar*/    }//borrar
-            /*borrar*/}//borrar
+//                    /*borrar*/                }//borrar
+//                /*borrar*/
+//            }//borrar
             break;
         }
         case metodoKNN_uchar:
@@ -271,6 +283,55 @@ int main(int argc, char** argv) {
                 buscar(k_vecinos, matrizKNNTrain, matrizKNNTest[i], indices, distancias);
                 listaResult.push_back(imagen(pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias)));
             }
+            break;
+        }
+        case metodoPCA_inverso:
+        {// PCA(inverso) + KNN
+            unsigned int m = matrizPCATrain.size();
+            unsigned int n = matrizPCATrain[0].size();
+            unsigned int t = matrizPCATest.size();
+            matrizReal cov(m, vectorReal(m, 0));
+            vectorReal media(n, 0);
+            cout << "que onda" << endl;
+            calcularMedias(matrizPCATrain, media);
+            cout << "sarasa 1 " << endl;
+            matrizCovarianzasInversa(matrizPCATrain, cov, media); //centra la matriz train y calcula cov
+            cout << "cov inversa fin" << endl;
+            centrarRespectoA(matrizPCATest, media, m); // centro la matriz test 
+
+//            /*borrar*/unsigned int alfas_n = 8, vecinos_n = 5; //borrar
+//            /*borrar*/int alfas[alfas_n] = {1, 2, 3, 5, 7, 10, 20, 30}; //borrar
+//            /*borrar*/alfa_componentes = alfas[alfas_n - 1]; //borrar
+
+            matrizReal Vt2;
+            obtenerAlfaVectores(cov, alfa_componentes, Vt2);
+            matrizReal V;
+            obtenerVtDesdeVt2(Vt2,V,matrizPCATrain);
+            matrizReal Vt(V[0].size(),vectorReal(V.size(),0));
+            transponer(V,Vt);
+            cout << "Vt m " << Vt.size() << " Vt n " << Vt[0].size() << endl;
+//            exit(0);
+//            /*borrar*/int vecinos[vecinos_n] = {1, 2, 3, 5, 7}; //borrar
+//            /*borrar*/for (unsigned int alfa_i = 0; alfa_i < alfas_n; alfa_i++) {//borrar
+//                /*borrar*/ alfa_componentes = alfas[alfa_i]; //borrar
+//                /*borrar*/ cout << "alfa: " << alfa_componentes << endl; //borrar
+
+                matrizReal nuevoTrain(m, vectorReal(alfa_componentes, 0));
+                matrizReal nuevoTest(t, vectorReal(alfa_componentes, 0));
+                tc(Vt, matrizPCATrain, nuevoTrain);
+                tc(Vt, matrizPCATest, nuevoTest);
+//                /*borrar*/ for (unsigned int vecino_i = 0; vecino_i < vecinos_n; vecino_i++) {//borrar
+//                    /*borrar*/ k_vecinos = vecinos[vecino_i]; //borrar
+//                    /*borrar*/ cout << "k: " << k_vecinos << endl; //borrar
+                    for (unsigned int i = 0; i < nuevoTest.size(); i++) {
+                        buscar(k_vecinos, nuevoTrain, nuevoTest[i], indices, distancias);
+//                        /*borrar*/ listaResult.push_back(imagen(to_string(k_vecinos) + " " + to_string(alfa_componentes) + " " + pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias))); //borrar
+                        /*DESCOMENTAR*/ //                        listaResult.push_back(imagen(pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias)));//descomentar
+                        listaResult.push_back(imagen(pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias)));//descomentar
+                    }
+//                    /*borrar*/                }//borrar
+//                /*borrar*/
+//            }//borrar
             break;
         }
     }
@@ -431,6 +492,7 @@ void inicializarMatriz(int tamTrain, int tamTest) {
             matrizKNNTest = matrizUchar(tamTest, vectorUchar(0, 0));
             break;
         case metodoPCA:
+        case metodoPCA_inverso:
         case metodoKNN:
             matrizPCATrain = matrizReal(tamTrain, vectorReal(0, 0));
             matrizPCATest = matrizReal(tamTest, vectorReal(0, 0));
@@ -446,6 +508,7 @@ void agregarAMatriz(uchar* data, int tam, int pos, bool esTest) {
             agregarAMatrizKNN(data, tam, pos, esTest);
             break;
         case metodoPCA:
+        case metodoPCA_inverso:
         case metodoKNN:
             agregarAMatrizPCA(data, tam, pos, esTest);
             break;

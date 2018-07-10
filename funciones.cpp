@@ -214,6 +214,21 @@ void multiplicarPorTranspuesta(const matrizReal &A, matrizReal& res) {
     //    return res;
 }
 
+void multiplicarPorTranspuestaInversa(const matrizReal &A, matrizReal& res) {
+    unsigned int m = A.size();
+    assert(m > 0);
+    unsigned int n = A[0].size();
+    assert(m == res.size() && m == res[0].size());
+    for (unsigned int i = 0; i < m; i++) {
+        for (unsigned int j = i; j < m; j++) {
+            for (unsigned int k = 0; k < n; k++) {
+                res[i][j] += A[i][k] * A[j][k];
+            }
+            res[j][i] = res[i][j];
+        }
+    }
+}
+
 //matrizReal tc(matrizReal& Vt, matrizReal& A) {// Aplica la transformación caracteristica a cada FILA de A
 //    unsigned int m = A.size(); // cant imágenes
 //    unsigned int n = Vt.size(); // alfa 
