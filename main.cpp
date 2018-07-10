@@ -48,8 +48,8 @@ matrizReal matrizPCATrain;
 matrizReal matrizPCATest;
 
 bool debug = false;
-unsigned int k_vecinos = 3;
-unsigned int alfa_componentes = 5;
+unsigned int k_vecinos = 1;
+unsigned int alfa_componentes = 20;
 
 
 void cargarDatosDeEntrada(int argc, char** argv);
@@ -74,105 +74,6 @@ void agregarAMatrizPCA(uchar* data, int tam, int pos, bool esTest);
  * -m 0 -i train.csv -qtest.csv -o salida.csv
  *
  */
-//void test1() {
-//    matrizReal A(10, vectorReal(10, 1));
-//    ifstream f("matriz.csv", ifstream::in);
-//
-//    for (unsigned int i = 0; i < A.size(); i++) {
-//        for (unsigned int j = 0; j < A[0].size(); j++) {
-//            f >> A[i][j];
-//        }
-//    }
-//
-//
-//    matrizReal B = obtenerAlfaVectores(A, 4);
-//    f.close();
-//    for (unsigned int i = 0; i < A.size(); i++) {
-//        imprimir(B[i], cout);
-//    }
-//}
-
-//void test2() {
-//    unsigned int m = 3, n = 4, k = 1;
-//    matrizReal A(m, vectorReal(n, 0));
-//    for (unsigned int i = 0; i < m; i++) {
-//        for (unsigned int j = 0; j < n; j++) {
-//            A[i][j] = k++;
-//        }
-//    }
-//    matrizReal cov(n, vectorReal(n, 0));
-//    matrizReal B(m, vectorReal(n, 0));
-//    centrarRespectoALaMedia(A, B);
-//
-//    //    matrizCovarianzas(A,cov);
-//
-//    for (unsigned int i = 0; i < m; i++) {
-//        for (unsigned int j = 0; j < n; j++) {
-//            cout << A[i][j] << ", ";
-//        }
-//        cout << endl;
-//    }
-//
-//    for (unsigned int i = 0; i < m; i++) {
-//        for (unsigned int j = 0; j < n; j++) {
-//            cout << B[i][j] << ", ";
-//        }
-//        cout << endl;
-//    }
-//    exit(0);
-//}
-
-//void test84() {
-//    double mat[10][5] = {
-//        { 99, 139, 230, 69, 211},
-//        { 77, 211, 115, 12, 172},
-//        {146, 105, 184, 129, 26},
-//        {104, 30, 68, 122, 212},
-//        { 88, 71, 237, 22, 121},
-//        {162, 16, 252, 98, 163},
-//        {152, 4, 38, 163, 199},
-//        {128, 157, 227, 203, 191},
-//        { 96, 145, 187, 148, 23},
-//        {158, 229, 24, 112, 94}
-//    };
-//    matrizReal A(10);
-//    for (int i = 0; i < 10; i++) {
-//        A[i] = vectorReal(mat[i], mat[i] + sizeof (mat[i]) / sizeof (mat[i][0]));
-//    }
-//    //    for (int i = 0; i < 10; i++) {
-//    //        for (int j = 0; j < 5; j++) {
-//    //            cout << " " << A[i][j] ;
-//    //        }
-//    //        cout << endl;
-//    //    }
-//    matrizReal cov(5, vectorReal(5, 0));
-//    matrizCovarianzas(A, cov);
-//    //    for (int i = 0; i < 5; i++) {
-//    //        for (int j = 0; j < 5; j++) {
-//    //            cout << " " << cov[i][j] ;
-//    //        }
-//    //        cout << endl;
-//    //    }
-//    matrizReal Vt;
-//    obtenerAlfaVectores(cov, 5, Vt);
-//    //    for (int i = 0; i < 5; i++) {
-//    //        for (int j = 0; j < 5; j++) {
-//    //            cout << " " << Vt[i][j] ;
-//    //        }
-//    //        cout << endl;
-//    //    }
-//    matrizReal nueva(A.size(), vectorReal(5, 0));
-//    tc(Vt, A, nueva);
-//    for (int i = 0; i < nueva.size(); i++) {
-//        for (int j = 0; j < nueva[0].size(); j++) {
-//            cout << " " << std::setprecision(5) << nueva[i][j];
-//        }
-//        cout << endl;
-//    }
-//
-//    exit(0);
-//}
-
 int main(int argc, char** argv) {
 
     if (argc < 8) {
