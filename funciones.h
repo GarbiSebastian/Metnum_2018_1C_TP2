@@ -17,7 +17,9 @@ void centrarRespectoA(matrizReal &A,const vectorReal& medias,unsigned int m);
 vectorReal A_por_v(matrizReal& A, vectorReal& v);
 //matrizReal multiplicarPorTranspuesta(matrizReal &A);
 void multiplicarPorTranspuesta(const matrizReal &A, matrizReal& B);
+void multiplicarPorTranspuestaInversa(const matrizReal &A, matrizReal& B);
 //matrizReal tc(matrizReal&Vt,matrizReal&A);
 void tc(const matrizReal&Vt, const matrizReal&A, matrizReal& transformada);
+void transponer(const matrizReal&A, matrizReal&At);
 #endif /* FUNCIONES_H */
 
