@@ -76,7 +76,7 @@ void agregarAMatrizPCA(uchar* data, int tam, int pos, bool esTest);
 int main(int argc, char** argv) {
 
     if (argc < 8) {
-        cout << "v 2" << endl;
+//        cout << "v 2" << endl;
         cout << "Error de cantidad de parametros" << endl;
         cout << "modo de uso: ./tp2 -m <metodo> -i <train_set> -q <test_set> -o <resultado> [-k <k vecinos>] [-a <alfa componentes principales>]" << endl;
         cout << "Metodo 0: KNN (DOUBLES)" << endl << "Metodo 1: PCA + KNN" << endl << "Metodo 2: KNN (UNSIGNED CHAR)" << endl;
@@ -248,7 +248,7 @@ void leerCSV(string path, listaImagenes &lista) {
     ifstream archivo;
     archivo.open(path.c_str(), ios::in);
     if (archivo.fail()) {
-        cout << "No se encontr� el archivo " << path << endl;
+        cout << "No se encontro el archivo " << path << endl;
         exit(0);
     }
 

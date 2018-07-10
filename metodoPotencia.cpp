@@ -6,10 +6,8 @@
 #include <iomanip>
 
 double metodoPotencia(matrizReal &B, vectorReal &v, int niter, double epsilon) {
-    cout << "epsilon: " << epsilon << endl;
 	v.clear();
 	vectorReal tmp(B.size(), 0);
-
 	//v <- x0
 	v = randVector(B.size());
 	//Para i = 1, . . . , niter
