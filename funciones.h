@@ -21,5 +21,6 @@ void multiplicarPorTranspuestaInversa(const matrizReal &A, matrizReal& B);
 //matrizReal tc(matrizReal&Vt,matrizReal&A);
 void tc(const matrizReal&Vt, const matrizReal&A, matrizReal& transformada);
 void transponer(const matrizReal&A, matrizReal&At);
+void A_x_B(matrizReal& A, matrizReal& B, matrizReal& C);// C = A*B
 #endif /* FUNCIONES_H */
 

@@ -45,11 +45,8 @@ void matrizCovarianzasInversa(matrizReal &imagenes, matrizReal& cov, const vecto
     assert(m > 0);
     unsigned int n = imagenes[0].size();
     assert(m == cov.size() && m == cov[0].size());
-    //matrizReal B(m, vectorReal(n, 0));
     centrarRespectoA(imagenes, medias, m);
-    cout << "antes multiplicarPorTranspuestaInversa" << endl;
     multiplicarPorTranspuestaInversa(imagenes, cov);
-    cout << "despues multiplicarPorTranspuestaInversa" << endl;
 }
 
 matrizReal obtenerAlfaVectores(matrizReal &A, unsigned int alfa) {

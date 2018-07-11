@@ -193,11 +193,8 @@ int main(int argc, char** argv) {
             unsigned int t = matrizPCATest.size();
             matrizReal cov(m, vectorReal(m, 0));
             vectorReal media(n, 0);
-            cout << "que onda" << endl;
             calcularMedias(matrizPCATrain, media);
-            cout << "sarasa 1 " << endl;
             matrizCovarianzasInversa(matrizPCATrain, cov, media); //centra la matriz train y calcula cov
-            cout << "cov inversa fin" << endl;
             centrarRespectoA(matrizPCATest, media, m); // centro la matriz test 
 
 //            /*borrar*/unsigned int alfas_n = 8, vecinos_n = 5; //borrar
@@ -206,12 +203,9 @@ int main(int argc, char** argv) {
 
             matrizReal Vt2;
             obtenerAlfaVectores(cov, alfa_componentes, Vt2);
-            matrizReal V;
-            obtenerVtDesdeVt2(Vt2,V,matrizPCATrain);
-            matrizReal Vt(V[0].size(),vectorReal(V.size(),0));
-            transponer(V,Vt);
-            cout << "Vt m " << Vt.size() << " Vt n " << Vt[0].size() << endl;
-//            exit(0);
+            
+            matrizReal Vt(alfa_componentes,vectorReal(n,0));
+            A_x_B(Vt2,matrizPCATrain,Vt);
 //            /*borrar*/int vecinos[vecinos_n] = {1, 2, 3, 5, 7}; //borrar
 //            /*borrar*/for (unsigned int alfa_i = 0; alfa_i < alfas_n; alfa_i++) {//borrar
 //                /*borrar*/ alfa_componentes = alfas[alfa_i]; //borrar

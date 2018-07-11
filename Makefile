@@ -68,9 +68,8 @@ clean: .clean-post
 
 # Add your pre 'clean' code here...
 
-.clean-post: .clean-impl .cleantp
-# Add your post 'clean' code here...
-
+.clean-post: .clean-impl
+	rm -rf build dist $(TP)
 
 # clobber
 clobber: .clobber-post
@@ -123,9 +122,6 @@ help: .help-post
 
 .tp:
 	cp $(CND_ARTIFACT_PATH_Release) $(TP)
-
-.cleantp:
-	rm -f $(TP)
 
 # include project implementation makefile
 include nbproject/Makefile-impl.mk

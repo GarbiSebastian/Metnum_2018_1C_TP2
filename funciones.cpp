@@ -92,7 +92,7 @@ void calcularMedias(const matrizReal &A, vectorReal &v) {
     }
 };
 
-void centrarRespectoA(matrizReal &A,const vectorReal& v, unsigned int k){
+void centrarRespectoA(matrizReal &A, const vectorReal& v, unsigned int k) {
     unsigned int m = A.size();
     unsigned int n = A[0].size();
     assert(n == v.size());
@@ -229,6 +229,24 @@ void multiplicarPorTranspuestaInversa(const matrizReal &A, matrizReal& res) {
     }
 }
 
+void A_x_B(matrizReal& A, matrizReal& B, matrizReal& C) {// C = A*B
+    unsigned int m = A.size();
+    unsigned int n = A[0].size();
+    assert(n == B.size());
+    unsigned int p = B[0].size();
+    assert(m == C.size());
+    assert(p == C[0].size());
+    for (unsigned int i = 0; i < m; i++) {
+        for (unsigned int j = 0; j < p; j++) {
+            double suma = 0;
+            for (unsigned int k = 0; k < n; k++) {
+                suma += A[i][k]*B[k][j];
+            }
+            C[i][j]=suma;
+        }
+    }
+}
+
 //matrizReal tc(matrizReal& Vt, matrizReal& A) {// Aplica la transformación caracteristica a cada FILA de A
 //    unsigned int m = A.size(); // cant imágenes
 //    unsigned int n = Vt.size(); // alfa 
@@ -248,7 +266,7 @@ void tc(const matrizReal& Vt, const matrizReal& A, matrizReal& res) {// Aplica l
     unsigned int alfa = res[0].size();
     assert(p == Vt[0].size()); // cant pixeles
     assert(m == res.size() && n >= alfa);
-        
+
     for (unsigned int i = 0; i < m; i++) {
         for (unsigned int j = 0; j < alfa; j++) {
             res[i][j] = productoInterno(Vt[j], A[i]);
