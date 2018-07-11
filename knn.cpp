@@ -47,8 +47,10 @@ void buscar(int k_vecinos, matrizUchar & train, vectorUchar & imagen, vectorEnte
 
 int votar(unsigned int cant_categorias, vectorEntero & labels, vectorEntero & indices, vectorReal &distancias) {
     vectorEntero bucket(cant_categorias, 0);
+    vectorReal bucketDistacia(cant_categorias,0);
     for (unsigned int i = 0; i < indices.size(); i++) {
         bucket[ labels[indices[i]]-1 ]++;
+        bucketDistacia[ labels[indices[i]]-1 ] += distancias[i];
     }
 //    vectorReal bucket(cant_categorias, 0);
 //    for (unsigned int i = 0; i < indices.size(); i++) {
@@ -60,8 +62,9 @@ int votar(unsigned int cant_categorias, vectorEntero & labels, vectorEntero & in
         if (bucket[i] > max) {
             max = bucket[i];
             j = i;
+        }else if(bucket[i] == max && bucketDistacia[i] < bucketDistacia[j]) {
+            j = i;
         }
     }
     return j+1;
 }
-
