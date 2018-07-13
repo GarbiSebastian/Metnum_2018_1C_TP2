@@ -84,7 +84,7 @@ clobber: .clobber-post
 # all
 all: .all-post .tp
 
-.all-pre:
+.all-pre: clobber
 # Add your pre 'all' code here...
 
 .all-post: .all-impl
