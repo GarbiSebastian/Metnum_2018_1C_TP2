@@ -35,12 +35,20 @@ $metodo = ($argc > 1) ? $argv[1] : 0;
 foreach ($ks as $k) {
     foreach ($folds as $ik => $k_fold) {
         $tiemposum = 0;
+
+        //echo $k_fold.PHP_EOL;
+        
         for ($it = 1; $it <= $k_fold; $it++) {
+            //echo $it.PHP_EOL;
             $file = "$dirResultados/metodo_$metodo/k_$k/k_fold_$k_fold/iteracion_$it/ejecucion.log";
             $f = file_get_contents($file);
             $lineas = explode(PHP_EOL, $f);
+            //var_dump($lineas);
             list($_, $tiempo) = explode(": ", $lineas[6]);
             $tiemposum += $tiempo;
+
+//            echo $tiempo.PHP_EOL;
+//            echo $tiemposum.PHP_EOL;
         }
         $tiempoProm = $tiemposum / $k_fold;
         $filename = "$dirResultados/metodo_$metodo/k_$k/k_fold_$k_fold/$archivo";
@@ -48,6 +56,7 @@ foreach ($ks as $k) {
         $handle = fopen($filename, "r");
         foreach ($plots as $i => $plot) {
             if ($i == 3) {
+//                echo $tiempoProm;
                 $plot->push($k, $tiempoProm, $ik);
             } else {
                 list($_, $y) = fgetcsv($handle, 0, " ");

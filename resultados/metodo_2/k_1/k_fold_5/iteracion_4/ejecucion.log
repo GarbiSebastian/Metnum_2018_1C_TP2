@@ -3,6 +3,6 @@ pathTrain: folds/k_fold_5/iteracion_4/train.csv
 pathTest: folds/k_fold_5/iteracion_4/test.csv
 pathResult: resultados/metodo_2/k_1/k_fold_5/iteracion_4/clasif.csv
 k_vecinos: 1
-alfa_componentes: 5
-tiempo: 1
+alfa_componentes: 20
+tiempo: 1.95671
 Fin

@@ -77,7 +77,7 @@ void agregarAMatrizPCA(uchar* data, int tam, int pos, bool esTest);
 int main(int argc, char** argv) {
 
     if (argc < 8) {
-//        cout << "v 2" << endl;
+        //        cout << "v 2" << endl;
         cout << "Error de cantidad de parametros" << endl;
         cout << "modo de uso: ./tp2 -m <metodo> -i <train_set> -q <test_set> -o <resultado> [-k <k vecinos>] [-a <alfa componentes principales>]" << endl;
         cout
@@ -143,39 +143,32 @@ int main(int argc, char** argv) {
             matrizCovarianzas(matrizPCATrain, cov, media); //centra la matriz train y calcula cov
             centrarRespectoA(matrizPCATest, media, m); // centro la matriz test 
 
-//            /*borrar*/unsigned int alfas_n = 8, vecinos_n = 5; //borrar
-//            /*borrar*/int alfas[alfas_n] = {1, 2, 3, 5, 7, 10, 20, 30}; //borrar
-//            /*borrar*/alfa_componentes = alfas[alfas_n - 1]; //borrar
-
-            cout << "X m " << matrizPCATrain.size() << " X n " << matrizPCATrain[0].size() << endl;
-            
+            //            /*borrar*/unsigned int alfas_n = 8, vecinos_n = 5; //borrar
+            //            /*borrar*/int alfas[alfas_n] = {1, 2, 3, 5, 7, 10, 20, 30}; //borrar
+            //            /*borrar*/alfa_componentes = alfas[alfas_n - 1]; //borrar
             matrizReal Vt;
             obtenerAlfaVectores(cov, alfa_componentes, Vt);
-            
-            cout << "Vt m " << Vt.size() << " Vt n " << Vt[0].size() << endl;
-            exit(0);
+            //            /*borrar*/int vecinos[vecinos_n] = {1, 2, 3, 5, 7}; //borrar
+            //            /*borrar*/for (unsigned int alfa_i = 0; alfa_i < alfas_n; alfa_i++) {//borrar
+            //                /*borrar*/ alfa_componentes = alfas[alfa_i]; //borrar
+            //                /*borrar*/ cout << "alfa: " << alfa_componentes << endl; //borrar
 
-//            /*borrar*/int vecinos[vecinos_n] = {1, 2, 3, 5, 7}; //borrar
-//            /*borrar*/for (unsigned int alfa_i = 0; alfa_i < alfas_n; alfa_i++) {//borrar
-//                /*borrar*/ alfa_componentes = alfas[alfa_i]; //borrar
-//                /*borrar*/ cout << "alfa: " << alfa_componentes << endl; //borrar
-
-                matrizReal nuevoTrain(m, vectorReal(alfa_componentes, 0));
-                matrizReal nuevoTest(t, vectorReal(alfa_componentes, 0));
-                tc(Vt, matrizPCATrain, nuevoTrain);
-                tc(Vt, matrizPCATest, nuevoTest);
-//                /*borrar*/ for (unsigned int vecino_i = 0; vecino_i < vecinos_n; vecino_i++) {//borrar
-//                    /*borrar*/ k_vecinos = vecinos[vecino_i]; //borrar
-//                    /*borrar*/ cout << "k: " << k_vecinos << endl; //borrar
-                    for (unsigned int i = 0; i < nuevoTest.size(); i++) {
-                        buscar(k_vecinos, nuevoTrain, nuevoTest[i], indices, distancias);
-//                        /*borrar*/ listaResult.push_back(imagen(to_string(k_vecinos) + " " + to_string(alfa_componentes) + " " + pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias))); //borrar
-                        /*DESCOMENTAR*/ //                        listaResult.push_back(imagen(pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias)));//descomentar
-                        listaResult.push_back(imagen(pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias)));//descomentar
-                    }
-//                    /*borrar*/                }//borrar
-//                /*borrar*/
-//            }//borrar
+            matrizReal nuevoTrain(m, vectorReal(alfa_componentes, 0));
+            matrizReal nuevoTest(t, vectorReal(alfa_componentes, 0));
+            tc(Vt, matrizPCATrain, nuevoTrain);
+            tc(Vt, matrizPCATest, nuevoTest);
+            //                /*borrar*/ for (unsigned int vecino_i = 0; vecino_i < vecinos_n; vecino_i++) {//borrar
+            //                    /*borrar*/ k_vecinos = vecinos[vecino_i]; //borrar
+            //                    /*borrar*/ cout << "k: " << k_vecinos << endl; //borrar
+            for (unsigned int i = 0; i < nuevoTest.size(); i++) {
+                buscar(k_vecinos, nuevoTrain, nuevoTest[i], indices, distancias);
+                //                        /*borrar*/ listaResult.push_back(imagen(to_string(k_vecinos) + " " + to_string(alfa_componentes) + " " + pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias))); //borrar
+                /*DESCOMENTAR*/ //                        listaResult.push_back(imagen(pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias)));//descomentar
+                listaResult.push_back(imagen(pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias))); //descomentar
+            }
+            //                    /*borrar*/                }//borrar
+            //                /*borrar*/
+            //            }//borrar
             break;
         }
         case metodoKNN_uchar:
@@ -197,45 +190,27 @@ int main(int argc, char** argv) {
             matrizCovarianzasInversa(matrizPCATrain, cov, media); //centra la matriz train y calcula cov
             centrarRespectoA(matrizPCATest, media, m); // centro la matriz test 
 
-//            /*borrar*/unsigned int alfas_n = 8, vecinos_n = 5; //borrar
-//            /*borrar*/int alfas[alfas_n] = {1, 2, 3, 5, 7, 10, 20, 30}; //borrar
-//            /*borrar*/alfa_componentes = alfas[alfas_n - 1]; //borrar
-
             matrizReal Vt2;
             obtenerAlfaVectores(cov, alfa_componentes, Vt2);
+            matrizReal Vt(alfa_componentes, vectorReal(n, 0));
+            A_x_B(Vt2, matrizPCATrain, Vt);
             
-            matrizReal Vt(alfa_componentes,vectorReal(n,0));
-            A_x_B(Vt2,matrizPCATrain,Vt);
-//            /*borrar*/int vecinos[vecinos_n] = {1, 2, 3, 5, 7}; //borrar
-//            /*borrar*/for (unsigned int alfa_i = 0; alfa_i < alfas_n; alfa_i++) {//borrar
-//                /*borrar*/ alfa_componentes = alfas[alfa_i]; //borrar
-//                /*borrar*/ cout << "alfa: " << alfa_componentes << endl; //borrar
-
-                matrizReal nuevoTrain(m, vectorReal(alfa_componentes, 0));
-                matrizReal nuevoTest(t, vectorReal(alfa_componentes, 0));
-                tc(Vt, matrizPCATrain, nuevoTrain);
-                tc(Vt, matrizPCATest, nuevoTest);
-//                /*borrar*/ for (unsigned int vecino_i = 0; vecino_i < vecinos_n; vecino_i++) {//borrar
-//                    /*borrar*/ k_vecinos = vecinos[vecino_i]; //borrar
-//                    /*borrar*/ cout << "k: " << k_vecinos << endl; //borrar
-                    for (unsigned int i = 0; i < nuevoTest.size(); i++) {
-                        buscar(k_vecinos, nuevoTrain, nuevoTest[i], indices, distancias);
-//                        /*borrar*/ listaResult.push_back(imagen(to_string(k_vecinos) + " " + to_string(alfa_componentes) + " " + pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias))); //borrar
-                        /*DESCOMENTAR*/ //                        listaResult.push_back(imagen(pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias)));//descomentar
-                        listaResult.push_back(imagen(pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias)));//descomentar
-                    }
-//                    /*borrar*/                }//borrar
-//                /*borrar*/
-//            }//borrar
+            matrizReal nuevoTrain(m, vectorReal(alfa_componentes, 0));
+            matrizReal nuevoTest(t, vectorReal(alfa_componentes, 0));
+            tc(Vt, matrizPCATrain, nuevoTrain);
+            tc(Vt, matrizPCATest, nuevoTest);
+            for (unsigned int i = 0; i < nuevoTest.size(); i++) {
+                buscar(k_vecinos, nuevoTrain, nuevoTest[i], indices, distancias);
+                listaResult.push_back(imagen(pathImagenesTest[i], votar(sujetos, idImagenesTrain, indices, distancias)));
+            }
             break;
         }
     }
     clock_t fin = clock();
     if (debug) cout << "listaResult.size(): " << listaResult.size() << endl;
     escribirCSV(pathResult, listaResult);
-    cout << "tiempo: " << (fin - inicio) / CLOCKS_PER_SEC << endl;
+    cout << "tiempo: " << (double)(fin - inicio) / CLOCKS_PER_SEC << endl;
     cout << "Fin" << endl;
-    //guardarImagen();
     return 0;
 }
 

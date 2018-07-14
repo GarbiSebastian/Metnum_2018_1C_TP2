@@ -1,0 +1,8 @@
+metodo: 0
+pathTrain: folds/k_fold_2/iteracion_1/train.csv
+pathTest: folds/k_fold_2/iteracion_1/test.csv
+pathResult: resultados/metodo_0/k_47/k_fold_2/iteracion_1/clasif.csv
+k_vecinos: 47
+alfa_componentes: 20
+tiempo: 2.04363
+Fin

@@ -38,6 +38,7 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>herramientas/armar_tabla.php</itemPath>
   </logicalFolder>
   <sourceRootList>
     <Elem>.</Elem>
@@ -70,6 +71,8 @@
       <item path="funciones.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="funciones.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="herramientas/armar_tabla.php" ex="false" tool="3" flavor2="0">
       </item>
       <item path="imprimir.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -112,6 +115,8 @@
       <item path="funciones.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="funciones.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="herramientas/armar_tabla.php" ex="false" tool="3" flavor2="0">
       </item>
       <item path="imprimir.h" ex="false" tool="3" flavor2="0">
       </item>

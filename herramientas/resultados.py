@@ -74,7 +74,7 @@ def auxDiv(i):
 
 x=range(sujetos)
 recalles=[ (float(datos(i,tipo=TP))/x_sujetos[i])*100 for i in x ]
-presiciones=[ auxDiv(i) for i in x ]
+precisiones=[ auxDiv(i) for i in x ]
 accuracys=[ (float(datos(i,tipo=TP)+datos(i,tipo=TN))/total)*100 for i in x ]
 
 
@@ -85,10 +85,10 @@ def plotRecall():
     g.plot(d1)
     del g
 
-def plotPresicion():
-    g = gBars(sujetos,title="Presición")
-    d1 = Gnuplot.Data(x,presiciones,using="2",title="Presicion")
-    g("set output 'presicion.png'")
+def plotPrecision():
+    g = gBars(sujetos,title="Precisión")
+    d1 = Gnuplot.Data(x,precisiones,using="2",title="Precision")
+    g("set output 'precision.png'")
     g.plot(d1)
     del g
 
@@ -111,17 +111,17 @@ def auxDiv(i):
        return 0
 
 
-# presicion: tp/ tp+fp
+# precision: tp/ tp+fp
 
 f=(lambda a, b: a + b)
-presicion=reduce(f,presiciones)/sujetos
+precision=reduce(f,precisiones)/sujetos
 recall=reduce(f,recalles)/sujetos
 accuracy=100*float(aciertos)/total
 
 #SALIDAS
-plotPresicion()
+plotPrecision()
 plotRecall()
 plotAccuracy()
-print "presicion: "+str(presicion)
+print "precision: "+str(precision)
 print "recall: "+str(recall)
 print "accuracy: "+str(accuracy)
