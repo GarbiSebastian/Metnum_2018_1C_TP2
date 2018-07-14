@@ -4,3 +4,5 @@ pathTest: folds/k_fold_5/iteracion_2/test.csv
 pathResult: resultados/metodo_3/k_5/alfa_95/k_fold_5/iteracion_2/clasif.csv
 k_vecinos: 5
 alfa_componentes: 95
+tiempo: 13.001
+Fin

@@ -1,7 +1,8 @@
 #!/bin/bash
 metodo=$1
 dir_resultados=resultados;
-for k in `seq 1 2 50`; do
+#for k in `seq 1 2 50`; do
+for k in `seq 1 2 5`; do
     for k_fold in 2 5 10; do
         if [[ $metodo -eq 1 ]] || [[ $metodo -eq 3 ]];
         then
