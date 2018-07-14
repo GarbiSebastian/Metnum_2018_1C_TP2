@@ -1,9 +1,9 @@
 #!/bin/bash
-metodo=1
+metodo=$1
 #make tp
 dir_resultados=resultados;
-#for k in 1 2 3 5 7; do
-	#for alfa in 1 2 5 7; do
+for k in 1 2 3 5 7; do
+	for alfa in 1 2 5 7; do
 		k=1;
 		alfa=1;
 		for k_fold in 2 5 10; do
